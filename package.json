@@ -1,0 +1,22 @@
+{
+  "name": "firefox-svg-icons",
+  "description": "SVG files used in Firefox",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nt1m/firefox-svg-icons"
+  },
+  "author": "Mozilla",
+  "license": "MPL2",
+  "bugs": {
+    "url": "https://github.com/nt1m/firefox-svg-icons/issues"
+  },
+  "homepage": "https://github.com/nt1m/firefox-svg-icons",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-svgmin": "^2.0.1"
+  }
+}
