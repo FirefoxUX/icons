@@ -65,3 +65,5 @@ _Please note_: this script edits the first ```<svg>``` line of the file to have 
 
 ### Contributing Code
 We have a bunch of things we'd like to include for version 1.0; feel free to take a look at [everything in milestone 1](https://github.com/nt1m/firefox-svg-icons/milestones/v1.0) and take a crack at any of them.
+
+<!--- https://wiki.mozilla.org/DevTools/Hacking#Chrome_Themes, useful info for adding them in once they're done -->
