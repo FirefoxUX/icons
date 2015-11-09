@@ -17,6 +17,7 @@ Since so many of our SVGs appear so small, designing them on the pixel grid will
 For Illustrator you’ll want the following settings:
 
 - **Document settings**: Units: pixels, Advanced > check ‘Align New Objects to Pixel Grid’
+- **Transform Panel**: for existing artwork not on pixel grid, select and then within Transform > Advanced > check 'Align to Pixel Grid'
 
 You can download a sample Illustrator file [here](pixel-grid-illustrator.ai).
 
