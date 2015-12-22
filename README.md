@@ -4,9 +4,10 @@ If you'd like to contribute SVG assets to Firefox, this is meant to be a handy g
 ## Table of Contents
 1. [Explanation of Pixel Grid](#explanation-of-pixel-grid)
 2. [Tips for Illustrator SVGs](#tips-for-illustrator-svgs)
-3. [Contributing Other Design Workflows](#contributing-other-design-workflows)
-4. [Bash Script for Cleaning SVGs](#bash-script-for-cleaning-svgs)
-5. [Contributing Code](#contributing-code)
+3. [Tips for Sketch](#tips-for-sketch)
+4. [Contributing Other Design Workflows](#contributing-other-design-workflows)
+5. [Bash Script for Cleaning SVGs](#bash-script-for-cleaning-svgs)
+6. [Contributing Code](#contributing-code)
 
 <!--- 5. [Node Script](#node-script) -->
 <!--- 6. [Grunt/Gulp Packages](#grunt-gulp-packages) -->
@@ -39,6 +40,18 @@ The devtools panel icons do a couple of things in a specific way; following thes
 
 1. **Inline fill colors.** Devtools panel icons all use ```fill=whitesmoke``` in the ```<svg>``` tag.
 2. **Inline opacities.** Devtools panel icons also inline opacities on their relevant path.
+
+### Tips for Sketch
+Sketch vector work is a little different but the fundamentals (keeping your SVG small, expanding all paths) is the same. Here's what we've found helps to build clean icons:
+
+- **Build your icon at 16x16 with the Pixel Grid turned on.** You can turn the pixel grid on at ```View > Canvas > Show Pixels```
+
+- **Make sure that all x/y coordinates are full pixels for lines/rectangles.** Sub-pixels = not on pixel grid. 
+![(]Position in the upper right hand corner of Sketch](README-content/sketch-position.png)
+
+- **Expand all your paths so strokes expand properly as SVG gets resized.** You can do this at ```Layer > Paths > Vectorize Stroke```.
+
+- **Align anything that isn't boxy to the pixel grid with item selected then ```Layer > Round to Nearest Pixel Edge```.**
 
 ### Contributing Other Design Workflows
 If you’re using a design tool that isn’t listed here and you’d like to add the instructions for how to expand paths, simplify paths, expand strokes, etc., please [open a PR]()! We’d super appreciate it + you’d be the best :100:
