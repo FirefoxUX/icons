@@ -5,6 +5,7 @@ body {
   font-family: Fira Sans, Arial, sans-serif;
   margin: 0;
   padding: 0;
+  color: #333;
   background: #fbfbfb;
 }
 .hidden {
@@ -43,6 +44,7 @@ body {
   background-size: 24px;
   background-position: 38px center;
   background-repeat: no-repeat;
+  color: #333;
 }
 #search-input.filled {
   background-color: #cce9f8;
