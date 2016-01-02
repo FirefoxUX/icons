@@ -2,10 +2,11 @@ var IconViewer = {
   init: function() {
     this.iconListEl = document.querySelector("#icon-list");
     this.searchEl = document.querySelector("#search-input");
+    this.searchEl.setAttribute("disabled", "disabled");
     this.searchEl.addEventListener("input", this.filterIcons.bind(this));
     this.showAllIcons();
   },
-  displayDirectory(directory) {
+  displayDirectory: function(directory) {
     var directoryEl = createNode({
       tagName: "div",
       attributes: {
@@ -19,7 +20,7 @@ var IconViewer = {
       this.displayIcon(items[i], directoryEl, directory.name);
     }
   },
-  displayIcon(icon, container, dirName) {
+  displayIcon: function(icon, container, dirName) {
     var iconContainer = createNode({
       attributes: {
         class: "icon-display",
@@ -36,7 +37,7 @@ var IconViewer = {
       parent: iconContainer
     });
   },
-  filterIcons() {
+  filterIcons: function() {
     var query = this.searchEl.value.trim();
     var allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
     if (query == "") {
@@ -67,7 +68,7 @@ var IconViewer = {
       }
     }
   },
-  showAllIcons() {
+  showAllIcons: function() {
     var promises = [];
     IconList.getAllDirectories().then(function(response) {
       for (var i = 0; i < response.length; i++) {

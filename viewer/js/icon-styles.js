@@ -1,5 +1,10 @@
 var ICON_STYLES = [
   {
+    name: "devtools",
+    filter: "none",
+    fill: "whitesmoke"
+  },
+  {
     name: "win-10",
     filter: "none",
     fill: "#4c4c4c"
