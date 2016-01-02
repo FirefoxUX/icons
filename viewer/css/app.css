@@ -1,6 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:400,300);
+
 /** Global styles **/
 body {
-  font: message-box;
+  font-family: Fira Sans, Arial, sans-serif;
   margin: 0;
   padding: 0;
   background: #fbfbfb;
@@ -13,15 +15,17 @@ body {
   font-size: 20px;
   margin-top: 30px;
 }
-#icon-list {
-  margin: 0 100px;
-}
 #headline {
   font-size: 40px;
   padding: 50px 100px;
   background: #FF9500;
   color: #fff;
 }
+#icon-list {
+  margin: 0 100px;
+}
+
+/** Search input **/
 #search-input {
   width: 100%;
   padding: 15px 100px;
@@ -46,6 +50,8 @@ body {
   opacity: 0.5;
   background-color: #fff;
 }
+
+/** Directory display **/
 .directory-display::before {
   content: attr(data-category);
   color: #999;
