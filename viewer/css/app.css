@@ -43,6 +43,7 @@ body {
 }
 .directory-display::before {
   content: attr(data-category);
+  color: #999;
   display: block;
   font-weight: 400;
   font-size: 16px;
