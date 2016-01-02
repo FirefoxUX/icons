@@ -6,7 +6,6 @@ body {
   margin: 0;
   padding: 0;
   background: #fbfbfb;
-  font-weight: 300;
 }
 .hidden {
   display: none !important;
@@ -18,6 +17,7 @@ body {
 }
 #headline {
   font-size: 40px;
+  font-weight: 300;
   padding: 50px 100px;
   background: #FF9500;
   color: #fff;
@@ -75,6 +75,7 @@ body {
   text-align: center;
   width: 70px;
   vertical-align: top;
+  transition: background 0.1s;
 }
 .icon-display:hover {
   background: #ebebeb;
@@ -82,6 +83,9 @@ body {
 .icon-display:active {
   background: #0095dd;
   color: #fff;
+}
+.icon-display:active img {
+  filter: invert(1);
 }
 .icon-display img {
   width: 24px;
