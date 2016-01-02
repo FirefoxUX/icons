@@ -1,0 +1,83 @@
+/** Global styles **/
+body {
+  font: message-box;
+  margin: 0;
+  padding: 0;
+  background: #fbfbfb;
+}
+.hidden {
+  display: none !important;
+}
+#icon-list {
+  margin: 0 100px;
+}
+#headline {
+  font-size: 40px;
+  padding: 50px 100px;
+  background: #FF9500;
+  color: #fff;
+}
+#search-input {
+  width: 100%;
+  padding: 15px 100px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  border-width: 0 0 1px 0;
+  border-color: #ddd;
+  border-style: solid;
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  background-image: url(../../icons/navigation/magnifying-glass.svg);
+  background-size: 24px;
+  background-position: 38px center;
+  background-repeat: no-repeat;
+}
+#search-input.filled {
+  background-color: #cce9f8;
+  border-color: #00A1F2;
+}
+#search-input[disabled] {
+  opacity: 0.5;
+  background-color: #fff;
+}
+.directory-display::before {
+  content: attr(data-category);
+  display: block;
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.directory-display {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 40px;
+}
+
+/** Icon display **/
+.icon-display {
+  display: inline-block;
+  padding: 5px;
+  text-align: center;
+  width: 70px;
+  vertical-align: top;
+}
+.icon-display:hover {
+  background: #ebebeb;
+}
+.icon-display:active {
+  background: #4a90e2;
+  color: #fff;
+}
+.icon-display img {
+  width: 24px;
+  height: 24px;
+  -moz-user-select: none;
+}
+.icon-display::after {
+  content: attr(data-icon);
+  font-size: 10px;
+  display: block;
+  width: 100%;
+  word-break: break-all;
+  -moz-user-select: text;
+}
