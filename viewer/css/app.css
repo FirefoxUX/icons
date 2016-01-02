@@ -76,6 +76,7 @@ body {
   width: 70px;
   vertical-align: top;
   transition: background 0.1s;
+  cursor: pointer;
 }
 .icon-display:hover {
   background: #ebebeb;
