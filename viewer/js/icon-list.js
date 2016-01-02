@@ -5,9 +5,9 @@ var IconList = {
         url: "http://api.github.com/repos/nt1m/firefox-svg-icons/commits"
       }).then(function(commits) {
         request({
-          url: "http://api.github.com/repos/nt1m/firefox-svg-icons/git/trees/" + commits[0].sha + "/icons/"
+          url: "http://api.github.com/repos/nt1m/firefox-svg-icons/git/trees/" + commits[0].sha
         }).then(function(response) {
-          resolve(response);
+          resolve(response.tree);
         });
       });
     });
