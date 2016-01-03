@@ -89,12 +89,14 @@ body {
   color: #fff;
 }
 .icon-display:active img {
+  -webkit-filter: contrast(0) brightness(200%);
   filter: contrast(0) brightness(200%);
 }
 .icon-display img {
   width: 24px;
   height: 24px;
   -moz-user-select: none;
+  user-select: none;
 }
 .icon-display::after {
   content: attr(data-icon);
