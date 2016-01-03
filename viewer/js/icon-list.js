@@ -3,12 +3,12 @@ var IconList = {
   requestCache: false,
   getAllDirectories: function() {
     return new Promise(function(resolve, reject) {
+      var commitsCache = JSON.parse(localStorage.getItem("cache.commit-sha"));
       request({
         url: BASE_GIT_URI + "/commits",
         cacheID: "commit-sha",
         requestCache: false
       }).then(function(commits) {
-        let commitsCache = JSON.parse(localStorage.getItem("cache.commit-sha"));
         this.requestCache = commitsCache[0].sha == commits[0].sha;
         request({
           url: BASE_GIT_URI + "/git/trees/" + commits[0].sha,
@@ -61,6 +61,7 @@ function request(options) {
   if (options.requestCache &&
       localStorage.getItem("cache." + options.cacheID)) {
     return new Promise(function(resolve, reject) {
+      console.log("cache loading")
       try {
         resolve(JSON.parse(localStorage.getItem("cache." + options.cacheID)));
       } catch(e) {
@@ -75,6 +76,7 @@ function request(options) {
   req.open(method, options.url);
 
   var promise = new Promise(function(resolve, reject) {
+    console.log("not not cache loadin")
     req.addEventListener("readystatechange", function() {
       if (req.readyState == 4 &&
           req.status == 200) {
