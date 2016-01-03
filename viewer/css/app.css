@@ -20,9 +20,9 @@ body {
   font-size: 40px;
   font-weight: 300;
   padding: 50px 100px;
-  box-shadow: inset 0 -6px 0 0px #FF9500;
+  box-shadow: inset 0 -6px 0 0px #ff9500;
   color: #fff;
-  background: #424F5A;
+  background: #424f5a;
 }
 #icon-list {
   margin: 0 100px;
@@ -89,7 +89,7 @@ body {
   color: #fff;
 }
 .icon-display:active img {
-  filter: invert(1);
+  filter: contrast(0) brightness(200%);
 }
 .icon-display img {
   width: 24px;
