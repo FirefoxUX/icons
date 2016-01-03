@@ -51,9 +51,14 @@ function request(options) {
   req.responseType = "json";
   req.open(method, options.url);
 
-  var promise = new Promise(function (resolve, reject) {
-    req.addEventListener("load", function() {
-      resolve(req.response);
+  var promise = new Promise(function(resolve, reject) {
+    req.addEventListener("readystatechange", function() {
+      if (req.readyState == XMLHttpRequest.DONE &&
+          req.status == 200) {
+        resolve(req.response);
+      } else if (req.status != 200) {
+        reject(req);
+      }
     });
     req.addEventListener("error", reject);
   });
