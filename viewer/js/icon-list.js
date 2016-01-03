@@ -58,7 +58,7 @@ function request(options) {
     req.addEventListener("error", reject);
   });
 
-  req.send(JSON.stringify(options.data));
+  req.send();
 
   return promise;
 };
