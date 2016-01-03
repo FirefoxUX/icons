@@ -4,6 +4,9 @@ var IconViewer = {
     this.searchEl = document.querySelector("#search-input");
     this.searchEl.setAttribute("disabled", "disabled");
     this.searchEl.addEventListener("input", this.filterIcons.bind(this));
+    if (location.hash) {
+      this.searchEl.value = location.hash.replace("#", "");
+    }
     this.showAllIcons();
   },
   displayDirectory: function(directory) {
@@ -40,6 +43,7 @@ var IconViewer = {
   filterIcons: function() {
     var query = this.searchEl.value.trim();
     var allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
+    location.hash = "#" + query;
     if (query == "") {
       this.searchEl.classList.remove("filled");
     }
@@ -87,6 +91,9 @@ var IconViewer = {
         document.getElementById("loading").remove();
         this.iconListEl.removeAttribute("hidden");
         this.searchEl.removeAttribute("disabled");
+        if (location.hash) {
+          this.filterIcons();
+        }
       }.bind(this));
     }.bind(this));
   }
