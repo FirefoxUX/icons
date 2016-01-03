@@ -59,7 +59,10 @@ function request(options) {
         resolve(JSON.parse(req.response));
       }
     });
-    req.addEventListener("error", reject);
+    req.addEventListener("error", function(e) {
+      console.error(e, req);
+      reject(e);
+    });
   });
 
   req.send();
