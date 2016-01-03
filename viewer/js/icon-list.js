@@ -52,7 +52,7 @@ function request(options) {
   req.open(method, options.url);
 
   var promise = new Promise(function (resolve, reject) {
-    req.addEventListener("load", () => {
+    req.addEventListener("load", function() {
       resolve(req.response);
     });
     req.addEventListener("error", reject);
