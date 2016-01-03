@@ -25,8 +25,12 @@ var IconViewer = {
   },
   displayIcon: function(icon, container, dirName) {
     var iconContainer = createNode({
+      tagName: "a",
       attributes: {
         class: "icon-display",
+        href: IconList.getFullIconURI(icon, dirName),
+        download: icon,
+        target: "_blank",
         "data-icon": icon.replace(".svg", ""),
         "data-category": dirName
       },
@@ -46,8 +50,7 @@ var IconViewer = {
     location.hash = "#" + query;
     if (query == "") {
       this.searchEl.classList.remove("filled");
-    }
-    else {
+    } else {
       this.searchEl.classList.add("filled");
     }
     for (var i = 0; i < allIcons.length; i++) {

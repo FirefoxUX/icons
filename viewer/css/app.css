@@ -80,6 +80,8 @@ body {
   vertical-align: top;
   transition: background 0.1s, color 0.1s;
   cursor: pointer;
+  color: inherit;
+  text-decoration: none;
 }
 .icon-display:hover {
   background: #ebebeb;
