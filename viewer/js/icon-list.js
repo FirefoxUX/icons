@@ -3,7 +3,12 @@ var IconList = {
   requestCache: false,
   getAllDirectories: function() {
     return new Promise(function(resolve, reject) {
-      var commitsCache = JSON.parse(localStorage.getItem("cache.commit-sha"));
+      var commitsCache;
+      try {
+        commitsCache = JSON.parse(localStorage.getItem("cache.commit-sha"));
+      } catch(e) {
+        commitsCache = [{sha: "-1"}];
+      }
       request({
         url: BASE_GIT_URI + "/commits",
         cacheID: "commit-sha",
