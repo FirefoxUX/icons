@@ -78,7 +78,7 @@ body {
   text-align: center;
   width: 70px;
   vertical-align: top;
-  transition: background 0.1s;
+  transition: background 0.1s, color 0.1s;
   cursor: pointer;
 }
 .icon-display:hover {
@@ -93,8 +93,9 @@ body {
   filter: contrast(0) brightness(200%);
 }
 .icon-display img {
-  width: 24px;
-  height: 24px;
+  transition: filter 0.1s;
+  max-width: 18px;
+  max-height: 18px;
   -moz-user-select: none;
   user-select: none;
 }
