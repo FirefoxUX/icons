@@ -48,8 +48,8 @@ var IconViewer = {
     }
     for (var i = 0; i < allIcons.length; i++) {
       var icon = allIcons[i];
-      if ((icon.dataset.icon.indexOf(query) > -1 ||
-          icon.dataset.category.indexOf(query) > -1) ||
+      if (icon.dataset.icon.indexOf(query) > -1 ||
+          icon.dataset.category.indexOf(query) > -1 ||
           query == "") {
         icon.classList.remove("hidden");
       } else {
@@ -65,6 +65,8 @@ var IconViewer = {
         dir.classList.remove("hidden");
       } else if (numberOfHiddenItems == dir.childNodes.length) {
         dir.classList.add("hidden");
+      } else {
+        dir.classList.remove("hidden");
       }
     }
   },
