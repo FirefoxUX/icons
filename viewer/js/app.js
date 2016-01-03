@@ -31,7 +31,7 @@ var IconViewer = {
         href: IconList.getFullIconURI(icon, dirName),
         download: icon,
         target: "_blank",
-        "data-icon": icon.replace(".svg", ""),
+        "data-icon": icon.replace(".svg", "").replace(/\-/g, " "),
         "data-category": dirName
       },
       parent: container
