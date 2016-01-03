@@ -20,8 +20,9 @@ body {
   font-size: 40px;
   font-weight: 300;
   padding: 50px 100px;
-  background: #FF9500;
+  box-shadow: inset 0 -6px 0 0px #FF9500;
   color: #fff;
+  background: #424F5A;
 }
 #icon-list {
   margin: 0 100px;
