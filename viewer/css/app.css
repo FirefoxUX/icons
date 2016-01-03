@@ -98,6 +98,7 @@ body {
   transition: filter 0.1s;
   max-width: 18px;
   max-height: 18px;
+  -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
@@ -106,6 +107,5 @@ body {
   font-size: 10px;
   display: block;
   width: 100%;
-  word-break: break-all;
   -moz-user-select: text;
 }
