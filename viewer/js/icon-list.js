@@ -3,16 +3,14 @@ var IconList = {
   requestCache: false,
   getAllDirectories: function() {
     return new Promise(function(resolve, reject) {
-      var commitsCache = [{sha: "-1"}];
-      try {
-        commitsCache = JSON.parse(localStorage.getItem("cache.commit-sha"));
-      } catch(e) {}
+      var commitsCache = JSON.parse(localStorage.getItem("cache.commit-sha"));
       request({
         url: BASE_GIT_URI + "/commits",
         cacheID: "commit-sha",
         requestCache: false
       }).then(function(commits) {
-        this.requestCache = commitsCache[0].sha == commits[0].sha;
+        this.requestCache = commitsCache ? commitsCache.sha == commits[0].sha
+                                         : false;
         request({
           url: BASE_GIT_URI + "/git/trees/" + commits[0].sha,
           cacheID: "repo-tree",
