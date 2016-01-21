@@ -1,4 +1,4 @@
-var BASE_GIT_URI = "http://api.github.com/repos/nt1m/firefox-svg-icons";
+var BASE_GIT_URI = "http://api.github.com/repos/FirefoxUX/firefox-svg-icons";
 var IconList = {
   requestCache: false,
   getAllDirectories: function() {
