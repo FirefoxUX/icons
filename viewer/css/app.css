@@ -39,7 +39,7 @@ body {
   border-color: #eee;
   border-style: solid;
   position: sticky;
-  top: 0;
+  top: 50px;
   box-sizing: border-box;
   background-image: url(../../icons/navigation/magnifying-glass.svg);
   background-size: 24px;
