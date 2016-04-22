@@ -6,7 +6,7 @@
 svg="$1"
 
 # Format the file with svgo
-svgo $1 --pretty
+svgo $1 --pretty --indent=2
 
 # delete lines 1-4 in place, which is where Adobe outputs <style> and <svg>
 gsed -i -e '1,4d;' $svg
