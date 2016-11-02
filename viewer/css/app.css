@@ -74,16 +74,17 @@ body {
 /** Directory display **/
 .directory-display::before {
   content: attr(data-category);
-  color: #999;
+  color: #6a6a6a;
   display: block;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 15px;
+  text-transform: capitalize;
 }
 .directory-display {
   border-bottom: 1px solid #ebebeb;
   padding-bottom: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 
 /** Icon display **/
