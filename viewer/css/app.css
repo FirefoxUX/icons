@@ -2,7 +2,7 @@
 
 /** Global styles **/
 body {
-  font-family: Fira Sans, Arial, sans-serif;
+  font-family: "Fira Sans", Arial, sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
@@ -26,6 +26,21 @@ body {
 }
 #icon-list {
   margin: 0 100px;
+}
+
+/** Embed version **/
+.embed {
+  color: #6a6a6a;
+}
+.embed #icon-list {
+  margin: 0;
+}
+.embed h2 {
+  font-size: 45px;
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 17px;
+  padding-top: 34px;
 }
 
 /** Search input **/
