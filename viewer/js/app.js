@@ -2,10 +2,12 @@ var IconViewer = {
   init: function() {
     this.iconListEl = document.querySelector("#icon-list");
     this.searchEl = document.querySelector("#search-input");
-    this.searchEl.setAttribute("disabled", "disabled");
-    this.searchEl.addEventListener("input", this.filterIcons.bind(this));
-    if (location.hash) {
-      this.searchEl.value = location.hash.replace("#", "");
+    if (this.searchEl) {
+      this.searchEl.setAttribute("disabled", "disabled");
+      this.searchEl.addEventListener("input", this.filterIcons.bind(this));
+      if (location.hash) {
+        this.searchEl.value = location.hash.replace("#", "");
+      }
     }
     this.showAllIcons();
   },
@@ -45,13 +47,18 @@ var IconViewer = {
     });
   },
   filterIcons: function() {
-    var query = this.searchEl.value.trim();
+    var query = "";
+    if (this.searchEl) {
+      query = this.searchEl.value.trim();
+    }
     var allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
     location.hash = "#" + query;
-    if (query == "") {
-      this.searchEl.classList.remove("filled");
-    } else {
-      this.searchEl.classList.add("filled");
+    if (this.searchEl) {
+      if (query == "") {
+        this.searchEl.classList.remove("filled");
+      } else {
+        this.searchEl.classList.add("filled");
+      }
     }
     for (var i = 0; i < allIcons.length; i++) {
       var icon = allIcons[i];
@@ -93,7 +100,9 @@ var IconViewer = {
       Promise.all(promises).then(function() {
         document.getElementById("loading").remove();
         this.iconListEl.removeAttribute("hidden");
-        this.searchEl.removeAttribute("disabled");
+        if (this.searchEl) {
+          this.searchEl.removeAttribute("disabled");
+        }
         if (location.hash) {
           this.filterIcons();
         }

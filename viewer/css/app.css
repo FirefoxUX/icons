@@ -56,6 +56,27 @@ body {
   background-color: #fff;
 }
 
+.embed {
+  color: #6a6a6a;
+}
+
+.embed #icon-list {
+  margin: 0;
+}
+
+.embed #search-input {
+  top: 0;
+}
+
+.embed h2 {
+  font-size: 45px;
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 17px;
+  font-family: "Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Droid Sans", "Helvetica Neue", sans-serif;
+  padding-top: 34px;
+}
+
 /** Directory display **/
 .directory-display::before {
   content: attr(data-category);
