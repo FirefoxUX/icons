@@ -113,8 +113,8 @@ body {
 }
 .icon-display img {
   transition: filter 0.1s;
-  max-width: 18px;
-  max-height: 18px;
+  max-width: 16px;
+  max-height: 16px;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
