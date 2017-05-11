@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
-  background: #fbfbfb;
+  background: #f9f9fa;
 }
 .hidden {
   display: none !important;
@@ -20,9 +20,7 @@ body {
   font-size: 40px;
   font-weight: 300;
   padding: 50px 100px;
-  box-shadow: inset 0 -6px 0 0px #ff9500;
-  color: #fff;
-  background: #424f5a;
+  background: white;
 }
 #icon-list {
   margin: 0 100px;
@@ -63,8 +61,8 @@ body {
   color: #333;
 }
 #search-input.filled {
-  background-color: #cce9f8;
-  border-color: #00A1F2;
+  background-color: #C9E1FB;
+  border-color: #0a84ff;
 }
 #search-input[disabled] {
   opacity: 0.5;
@@ -74,7 +72,7 @@ body {
 /** Directory display **/
 .directory-display::before {
   content: attr(data-category);
-  color: #6a6a6a;
+  color: #737373;
   display: block;
   font-weight: 400;
   font-size: 16px;
@@ -104,8 +102,8 @@ body {
   background: #ebebeb;
 }
 .icon-display:active {
-  background: #0095dd;
-  color: #fff;
+  background: #0a84ff;
+  color: #f9f9fa;
 }
 .icon-display:active img {
   -webkit-filter: contrast(0) brightness(200%);
