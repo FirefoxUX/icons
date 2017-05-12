@@ -1,4 +1,4 @@
-# Firefox SVG Assets
+# Firefox SVG Assets  [![Build Status](https://travis-ci.org/FirefoxUX/firefox-icons.svg?branch=master)](https://travis-ci.org/FirefoxUX/firefox-icons)
 If you'd like to contribute SVG assets to Firefox, this is meant to be a handy guide for making sure you SVGs are compressed and neatly formatted as possible :tada:
 
 ## Table of Contents
@@ -46,7 +46,7 @@ Sketch vector work is a little different but the fundamentals (keeping your SVG 
 
 - **Build your icon at 16x16 with the Pixel Grid turned on.** You can turn the pixel grid on at ```View > Canvas > Show Pixels```
 
-- **Make sure that all x/y coordinates are full pixels for lines/rectangles.** Sub-pixels = not on pixel grid. 
+- **Make sure that all x/y coordinates are full pixels for lines/rectangles.** Sub-pixels = not on pixel grid.
 ![Position in the upper right hand corner of Sketch](README-content/sketch-position.png)
 
 - **Expand all your paths so strokes expand properly as SVG gets resized.** You can do this at ```Layer > Paths > Vectorize Stroke```.
