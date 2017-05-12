@@ -10,13 +10,12 @@
     "url": "https://github.com/nt1m/firefox-svg-icons"
   },
   "author": "Mozilla",
-  "license": "MPL2",
+  "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/nt1m/firefox-svg-icons/issues"
   },
   "homepage": "https://github.com/nt1m/firefox-svg-icons",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-svgmin": "^2.0.1"
+    "shelljs": "0.7.7"
   }
 }

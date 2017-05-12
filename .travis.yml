@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+- 7.7.0
+# safelist
+branches:
+  only:
+  - master
+script: bash ./deploy.sh
