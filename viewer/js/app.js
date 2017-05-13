@@ -85,29 +85,18 @@ var IconViewer = {
     }
   },
   showAllIcons: function() {
-    var promises = [];
-    IconList.getAllDirectories().then(function(response) {
-      for (var i = 0; i < response.length; i++) {
-        var promise = new Promise(function(resolve) {
-          IconList.getDirectory(response[i]).then(function(directory) {
-            var directoryName = directory.name;
-            this.displayDirectory(directory);
-            resolve();
-          }.bind(this));
-        }.bind(this));
-        promises.push(promise);
-      }
-      Promise.all(promises).then(function() {
-        document.getElementById("loading").remove();
-        this.iconListEl.removeAttribute("hidden");
-        if (this.searchEl) {
-          this.searchEl.removeAttribute("disabled");
-        }
-        if (location.hash) {
-          this.filterIcons();
-        }
-      }.bind(this));
-    }.bind(this));
+    var directories = IconList.getAllDirectories();
+    for (var directory of directories) {
+      this.displayDirectory(directory);
+    }
+    document.getElementById("loading").remove();
+    this.iconListEl.removeAttribute("hidden");
+    if (this.searchEl) {
+      this.searchEl.removeAttribute("disabled");
+    }
+    if (location.hash) {
+      this.filterIcons();
+    }
   }
 };
 window.addEventListener("DOMContentLoaded", IconViewer.init.bind(IconViewer));
