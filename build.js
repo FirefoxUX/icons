@@ -19,4 +19,7 @@ for (let file of dirs) {
     currDir.items.push(file);
   }
 }
+if (currDir) {
+  images.push(currDir);
+}
 shell.ShellString('var data = ' + JSON.stringify(images, null, '  ')).to('dist/viewer/js/data.js');
