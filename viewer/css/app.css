@@ -54,9 +54,8 @@ body {
   position: sticky;
   top: 50px;
   box-sizing: border-box;
-  background-image: url(../../icons/navigation/magnifying-glass.svg);
-  background-size: 24px;
-  background-position: 38px center;
+  background-image: url(../../icons/new/search-16.svg);
+  background-position: calc((100px - 16px) / 2) center;
   background-repeat: no-repeat;
   color: #333;
 }
