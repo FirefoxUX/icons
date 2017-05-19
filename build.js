@@ -3,7 +3,7 @@
 
 var shell = require('shelljs');
 
-shell.cp('-R', ['viewer', 'index.html', 'icons'], 'dist');
+shell.cp('-R', ['html/*', 'icons'], 'dist');
 const dirs = shell.ls('-R', 'icons');
 
 let currDir;
