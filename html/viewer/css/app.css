@@ -7,6 +7,7 @@ body {
   padding: 0;
   color: #333;
   background: #f9f9fa;
+  box-sizing: border-box;
 }
 .hidden {
   display: none !important;
@@ -23,7 +24,59 @@ body {
   background: white;
 }
 #icon-list {
-  margin: 0 100px;
+  margin: 0 300px 0 100px;
+}
+
+/** icon details **/
+#icon-details {
+  background: white;
+  height: calc(100vh - 70px);
+  position: fixed;
+  right: -320px;
+  top: 50px;
+  transition: right 1s cubic-bezier(.07,.95,0,1);;
+  width: 300px;
+  padding: 10px;
+}
+#icon-details.show {
+  right: 0;
+}
+#icon-details h1 {
+  font-size: 20px;
+}
+#icon-details .section {
+  margin: 16px 0;
+}
+#icon-details .title {
+  font-weight: bold;
+}
+#icon-details .preview {
+  border-bottom: 1px solid #333;
+  border-top: 1px solid #333;
+  padding: 32px;
+  text-align: center;
+}
+#icon-details img {
+  width: 32px;
+}
+#icon-details .name {
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+#download {
+  margin-top: 32px;
+  text-align: center;
+}
+#download a {
+  background-color: #0a84ff;
+  border: none;
+  color: #fff;
+  padding: 10px 14px;
+  text-decoration: none;
+}
+#download a img {
+  vertical-align: sub;
+  width: 16px;
 }
 
 /** Embed version **/
@@ -97,7 +150,8 @@ body {
   text-decoration: none;
   margin-right: 2px;
 }
-.icon-display:hover {
+.icon-display:hover,
+.icon-display.selected {
   background: #ebebeb;
 }
 .icon-display:active {

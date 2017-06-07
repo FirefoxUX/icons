@@ -11,6 +11,7 @@ var IconViewer = {
     }
     this.showAllIcons();
   },
+
   displayDirectory: function(directory) {
     var directoryEl = createNode({
       tagName: "div",
@@ -20,14 +21,25 @@ var IconViewer = {
       },
       parent: this.iconListEl
     });
+    directoryEl.addEventListener('click', e => {
+      let target = e.target;
+      if (target.classList.contains('directory-display')) {
+        target = null;
+      }
+      while (target && !target.classList.contains('icon-display')) {
+        target = target.parentNode;
+      }
+      updateSidebar(target);
+    });
     var items = directory.items;
     for (var i = 0; i < items.length; i++) {
       this.displayIcon(items[i], directoryEl, directory.name);
     }
   },
+
   displayIcon: function(icon, container, dirName) {
     var iconContainer = createNode({
-      tagName: "a",
+      tagName: "div",
       attributes: {
         class: "icon-display",
         href: IconList.getFullIconURI(icon, dirName),
@@ -49,6 +61,7 @@ var IconViewer = {
       ga('send', 'event', 'icons', 'click', `${dirName}/${icon}`);
     }
   },
+
   filterIcons: function() {
     var query = "";
     if (this.searchEl) {
@@ -87,6 +100,7 @@ var IconViewer = {
       }
     }
   },
+
   showAllIcons: function() {
     var directories = IconList.getAllDirectories();
     for (var directory of directories) {
@@ -102,6 +116,7 @@ var IconViewer = {
     }
   }
 };
+
 window.addEventListener("DOMContentLoaded", IconViewer.init.bind(IconViewer));
 
 // Helpers
@@ -123,4 +138,24 @@ function createNode(options) {
   }
 
   return el;
+}
+
+function updateSidebar(icon) {
+  let details = document.getElementById('icon-details');
+  details.classList.toggle('show', icon);
+  let selected = document.querySelectorAll('.icon-display.selected');
+  selected.forEach(e => e.classList.remove('selected'));
+
+  if (!icon) {
+    return;
+  }
+
+  icon.classList.add('selected');
+  let image = icon.querySelector('img').src;
+  details.querySelector('.name').textContent = icon.dataset.icon;
+  details.querySelector('.preview').innerHTML = `<img src="${image}">`;
+
+  let download = document.querySelector('#download a');
+  download.href = image;
+  download.setAttribute('download', icon.dataset.icon.replace(' ', '-') + '.svg')
 }

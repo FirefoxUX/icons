@@ -9,6 +9,31 @@
   <input type="text" placeholder="Search Icons" id="search-input"/>
   <div id="icon-list" hidden></div>
   <div id="loading">Loading icons...</div>
+  <div id="icon-details">
+    <h1>Download your icon.</h1>
+    <div class="preview"></div>
+    <div class="name"></div>
+    <div class="options">
+      <div class="section">
+        <div class="title">Select your size:</div>
+        <input type="checkbox" id="size-16"><label for="size-16">16x16</label><br>
+        <input type="checkbox" id="size-24"><label for="size-24">24x24</label><br>
+        <input type="checkbox" id="size-32"><label for="size-32">32x32</label><br>
+        <input type="checkbox" id="size-64"><label for="size-64">64x64</label><br>
+        <input type="checkbox" id="size-other"><label for="size-other">Other</label><br>
+      </div>
+      <div class="section">
+        <div class="title">Select your color:</div>
+        <select id="color">
+          <option value="context-fill" selected>Context-fill</option>
+          <option value="other" disabled>Coming soon…</option>
+        </select>
+      </div>
+    </div>
+    <div id="download">
+      <a><img src="download-white.svg"> Download</a>
+    </div>
+  </div>
 
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
