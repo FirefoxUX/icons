@@ -45,6 +45,9 @@ var IconViewer = {
       },
       parent: iconContainer
     });
+    iconContainer.onclick = () => {
+      ga('send', 'event', 'icons', 'click', `${dirName}/${icon}`);
+    }
   },
   filterIcons: function() {
     var query = "";
