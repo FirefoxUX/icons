@@ -12,6 +12,10 @@ var IconViewer = {
     document.querySelector('#icon-details .close-button').addEventListener('click', e => {
       updateSidebar();
     });
+    document.querySelector('#download a').addEventListener('click', e => {
+      ga('send', 'event', 'icons', 'click', e.target.dataset.path);
+    })
+
     this.showAllIcons();
   },
 
@@ -49,7 +53,8 @@ var IconViewer = {
         download: icon,
         target: "_blank",
         "data-icon": icon.replace(".svg", "").replace(/\-/g, " "),
-        "data-category": dirName
+        "data-category": dirName,
+        "data-path": `${dirName}/${icon}`
       },
       parent: container
     });
@@ -60,9 +65,6 @@ var IconViewer = {
       },
       parent: iconContainer
     });
-    iconContainer.onclick = () => {
-      ga('send', 'event', 'icons', 'click', `${dirName}/${icon}`);
-    }
   },
 
   filterIcons: function() {
@@ -153,6 +155,8 @@ function updateSidebar(icon) {
     return;
   }
 
+  ga('send', 'event', 'icons', 'preview', icon.dataset.path);
+
   icon.classList.add('selected');
   let image = icon.querySelector('img').src;
   details.querySelector('.name').textContent = icon.dataset.icon;
@@ -160,5 +164,6 @@ function updateSidebar(icon) {
 
   let download = document.querySelector('#download a');
   download.href = image;
-  download.setAttribute('download', icon.dataset.icon.replace(' ', '-') + '.svg')
+  download.setAttribute('download', icon.dataset.path.replace(`${icon.dataset.category}/`, ''));
+  download.dataset.path = icon.dataset.path;
 }
