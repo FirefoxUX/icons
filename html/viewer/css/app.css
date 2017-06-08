@@ -38,12 +38,36 @@ body {
   width: 300px;
   padding: 10px;
 }
+
 #icon-details.show {
   right: 0;
 }
+
 #icon-details h1 {
   font-size: 20px;
+  font-weight: unset;
 }
+
+#icon-details .close-button {
+  background-image: url('../../icons/deprecated-developer/close.svg');
+  background-position: center;
+  background-size: contain;
+  display: inline-block;
+  height: 24px;
+  position: absolute;
+  right: 12px;
+  top: 24px;
+  width: 24px;
+}
+
+#icon-details .close-button:hover {
+  background-color: #ebebeb;
+}
+
+#icon-details .close-button:active {
+  background-color: #dcdcdc;
+}
+
 #icon-details .section {
   margin: 16px 0;
 }

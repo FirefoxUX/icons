@@ -9,6 +9,9 @@ var IconViewer = {
         this.searchEl.value = location.hash.replace("#", "");
       }
     }
+    document.querySelector('#icon-details .close-button').addEventListener('click', e => {
+      updateSidebar();
+    });
     this.showAllIcons();
   },
 
