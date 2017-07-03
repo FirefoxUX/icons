@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Fira+Sans:400,300);
 
+* {
+  box-sizing: border-box;
+}
+
 /** Global styles **/
 body {
   font-family: "Fira Sans", Arial, sans-serif;
@@ -7,7 +11,6 @@ body {
   padding: 0;
   color: #333;
   background: #f9f9fa;
-  box-sizing: border-box;
 }
 .hidden {
   display: none !important;
@@ -19,7 +22,7 @@ body {
 }
 #headline {
   font-size: 40px;
-  font-weight: 300;
+  font-weight: 400;
   padding: 50px 100px;
   background: white;
 }
@@ -30,13 +33,35 @@ body {
 /** icon details **/
 #icon-details {
   background: white;
-  height: calc(100vh - 70px);
+  height: 100vh;
   position: fixed;
-  right: -320px;
-  top: 50px;
+  right: -440px;
+  top: 0;
   transition: right 1s cubic-bezier(.07,.95,0,1);;
-  width: 300px;
-  padding: 10px;
+  width: 400px;
+  border-left: solid 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+#icon-details header {
+  padding: 48px 48px 0 48px;
+}
+
+#icon-details main {
+  padding: 0 48px;
+}
+
+#icon-details footer {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 0;
+  width: 400px;
+  padding: 24px 48px;
+  border-top: solid 1px rgba(0, 0, 0, 0.1);
+  background-color: rgba(215, 215, 219, .2);
 }
 
 #icon-details.show {
@@ -44,20 +69,20 @@ body {
 }
 
 #icon-details h1 {
-  font-size: 20px;
-  font-weight: unset;
+  font-size: 32px;
+  font-weight: 400;
+  margin: 0 0 24px 0;
 }
 
 #icon-details .close-button {
-  background-image: url('../../icons/deprecated-developer/close.svg');
+  background-image: url('../../icons/new/stop-16.svg');
   background-position: center;
   background-size: contain;
-  display: inline-block;
-  height: 24px;
   position: absolute;
-  right: 12px;
   top: 24px;
+  right: 24px;
   width: 24px;
+  height: 24px;
 }
 
 #icon-details .close-button:hover {
@@ -69,38 +94,157 @@ body {
 }
 
 #icon-details .section {
-  margin: 16px 0;
+  margin: 48px 0;
 }
+
 #icon-details .title {
   font-weight: bold;
 }
+
 #icon-details .preview {
-  border-bottom: 1px solid #333;
-  border-top: 1px solid #333;
-  padding: 32px;
+  border-top: solid 1px rgba(0, 0, 0, 0.1);
+  padding: 32px 32px 16px 32px;
   text-align: center;
 }
+
 #icon-details img {
-  width: 32px;
+  width: 64px;
 }
+
 #icon-details .name {
-  margin-bottom: 20px;
+  padding: 0 32px 32px 32px;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  text-align: center;
   text-transform: capitalize;
 }
-#download {
-  margin-top: 32px;
-  text-align: center;
+
+/** icon details checkbox **/
+
+.checkbox, 
+.radio {
+  margin: 12px 0;
 }
-#download a {
-  background-color: #0a84ff;
-  border: none;
-  color: #fff;
-  padding: 10px 14px;
-  text-decoration: none;
+
+#icon-details [type="checkbox"]:not(:checked) + label, 
+#icon-details [type="checkbox"]:checked + label {
+  cursor: pointer;
+  padding: 0 32px;
+  position: relative;
 }
-#download a img {
-  vertical-align: sub;
+
+#icon-details [type="checkbox"]:not(:checked), 
+#icon-details [type="checkbox"]:checked {
+  offset-inline-start: -9999px;
+  position: absolute;
+}
+
+#icon-details [type="checkbox"]:not(:checked) + label::after, 
+#icon-details [type="checkbox"]:checked + label::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  padding: 3px;
   width: 16px;
+  height: 16px;
+  offset-inline-start: 0;
+  background: url("../images/check.svg") no-repeat center center;
+}
+
+#icon-details [type="checkbox"]:not(:checked) + label::before, 
+#icon-details [type="checkbox"]:checked + label::before {
+  background: white;
+  border: 1px solid #c1c1c1;
+  border-radius: 3px;
+  content: '';
+  height: 20px;
+  offset-inline-start: 0;
+  position: absolute;
+  top: 0;
+  width: 20px;
+}
+
+#icon-details [type="checkbox"]:disabled + label{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/** icons details radio **/
+
+#icon-details [type="radio"]:not(:checked) + label, 
+#icon-details [type="radio"]:checked + label {
+  cursor: pointer;
+  padding: 0 32px;
+  position: relative;
+}
+
+#icon-details [type="radio"]:not(:checked), 
+#icon-details [type="radio"]:checked {
+  offset-inline-start: -9999px;
+  position: absolute;
+}
+
+#icon-details [type="radio"]:not(:checked) + label::after, 
+#icon-details [type="radio"]:checked + label::after {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  content: '';
+  width: 12px;
+  height: 12px;
+  background-color: #0a84ff;
+  border-radius: 100%;
+}
+
+#icon-details [type="radio"]:not(:checked) + label::before, 
+#icon-details [type="radio"]:checked + label::before {
+  background: white;
+  border: 1px solid #c1c1c1;
+  border-radius: 100%;
+  content: '';
+  width: 20px;
+  height: 20px;
+  offset-inline-start: 0;
+  position: absolute;
+  top: 0;
+}
+
+label span {
+  display: inline;
+  vertical-align: bottom;
+  line-height: 1;
+}
+
+label small {
+  vertical-align: bottom;
+  font-size: 12px;
+  line-height: 1.05;
+  margin-left: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+#download {
+  text-align: right;
+  cursor: pointer;
+}
+
+#cancel a {
+  display: block;
+  color: #3b3b3b;
+  margin: 12px 24px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#download a {
+  display: block;
+  background-color: #0a84ff;
+  color: white;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 3px;
 }
 
 /** Embed version **/
@@ -130,7 +274,6 @@ body {
   border-style: solid;
   position: sticky;
   top: 50px;
-  box-sizing: border-box;
   background-image: url(../../icons/new/search-16.svg);
   background-position: calc((100px - 16px) / 2) center;
   background-repeat: no-repeat;
@@ -142,7 +285,7 @@ body {
 }
 #search-input[disabled] {
   opacity: 0.5;
-  background-color: #fff;
+  background-color: white;
 }
 
 /** Directory display **/
