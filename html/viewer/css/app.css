@@ -93,12 +93,15 @@ body {
 #icon-details .close-button {
   background-image: url('../../icons/new/stop-16.svg');
   background-position: center;
-  background-size: contain;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  transition: all 0.1s var(--photon-timing-fuction);
   position: absolute;
   top: 24px;
   right: 24px;
   width: 24px;
   height: 24px;
+  cursor: pointer;
 }
 
 #icon-details .close-button:hover {
@@ -106,7 +109,7 @@ body {
 }
 
 #icon-details .close-button:active {
-  background-color: var(--grey-50);
+  transform: scale(1.2);
 }
 
 #icon-details .section {
@@ -296,14 +299,6 @@ input:checked + .toggle:before {
 
 #download {
   text-align: right;
-  cursor: pointer;
-}
-
-#cancel a {
-  display: block;
-  color: var(--grey-90);
-  margin: 12px 24px;
-  text-decoration: none;
   cursor: pointer;
 }
 
