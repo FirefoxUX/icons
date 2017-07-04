@@ -148,7 +148,7 @@ body {
 #icon-details [type="checkbox"]:not(:checked) + label, 
 #icon-details [type="checkbox"]:checked + label {
   cursor: pointer;
-  padding: 0 32px;
+  padding-left: 32px;
   position: relative;
 }
 
@@ -167,6 +167,9 @@ body {
   width: 16px;
   height: 16px;
   offset-inline-start: 0;
+}
+
+#icon-details [type="checkbox"]:checked + label::after {
   background: url("../images/check.svg") no-repeat center center;
 }
 
