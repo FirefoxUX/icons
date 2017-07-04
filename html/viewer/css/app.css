@@ -140,7 +140,7 @@ body {
 
 /** icon details checkbox **/
 
-.checkbox, 
+.checkbox,
 .radio {
   margin: 12px 0;
 }
@@ -175,7 +175,7 @@ body {
 
 #icon-details [type="checkbox"]:not(:checked) + label::before, 
 #icon-details [type="checkbox"]:checked + label::before {
-  background: white;
+  background-color: white;
   border: 1px solid var(--grey-30);
   border-radius: 3px;
   content: '';
@@ -196,7 +196,7 @@ body {
 #icon-details [type="radio"]:not(:checked) + label, 
 #icon-details [type="radio"]:checked + label {
   cursor: pointer;
-  padding: 0 32px;
+  padding-left: 32px;
   position: relative;
 }
 
@@ -214,8 +214,11 @@ body {
   content: '';
   width: 12px;
   height: 12px;
-  background-color: var(--blue-50);
   border-radius: 100%;
+}
+
+#icon-details [type="radio"]:checked + label::after {
+  background-color: var(--blue-50);
 }
 
 #icon-details [type="radio"]:not(:checked) + label::before, 
@@ -246,9 +249,7 @@ label small {
   text-transform: uppercase;
 }
 
-/** Toggle **/
-
- /* The switch - the box around the slider */
+/** Switch **/
 
 .switch {
   position: relative;
@@ -259,10 +260,10 @@ label small {
   margin-top: -1px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {display:none;}
 
-/* The slider */
+/* Toggle */
+
 .toggle {
   position: absolute;
   cursor: pointer;
