@@ -88,7 +88,9 @@ body {
 #icon-details h1 {
   font-size: 24px;
   font-weight: 400;
-  margin: 0 0 24px 0;
+  padding: 0 0 24px 0;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
 }
 
 #icon-details .close-button {
@@ -123,20 +125,34 @@ body {
 }
 
 #icon-details .preview {
-  border-top: solid 1px rgba(0, 0, 0, 0.1);
   padding: 32px 32px 16px 32px;
   text-align: center;
+  border-radius: 4px;
 }
 
-#icon-details img {
+#icon-details .preview.light {
+  color: rgba(249, 249, 250, .8);
+  background-color: var(--grey-90);
+}
+
+#icon-details .preview.dark {
+  color: rgba(12, 12, 13, .8);
+  background-color: var(--grey-10);
+}
+
+#icon-details svg {
   width: 64px;
+  height: 64px;
 }
 
 #icon-details .name {
-  padding: 0 32px 32px 32px;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  padding: 16px 32px;
   text-align: center;
   text-transform: capitalize;
+}
+
+#icon-details .options {
+  border-top: solid 1px rgba(0, 0, 0, 0.1);
 }
 
 /** icon details checkbox **/
