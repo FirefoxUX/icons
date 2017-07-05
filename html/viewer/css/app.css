@@ -10,6 +10,7 @@
   --grey-70: #4a4a4f;
   --grey-90: #0c0c0d;
   --photon-timing-fuction: cubic-bezier(.07,.95,0,1);
+  --sidebar-width: 400px;
 }
 
 * {
@@ -43,7 +44,7 @@ body {
 }
 
 #icon-list {
-  margin: 0 300px 0 100px;
+  margin: 0 var(--sidebar-width) 0 100px;
 }
 
 /** icon details **/
@@ -57,7 +58,7 @@ body {
   right: -440px;
   top: 50px;
   transition: right 1s var(--photon-timing-fuction);
-  width: 400px;
+  width: var(--sidebar-width);
   border-left: solid 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.08);
 }
@@ -75,7 +76,6 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 24px 0;
-  width: 400px;
   padding: 24px 48px;
   border-top: solid 1px rgba(0, 0, 0, 0.1);
   background-color: var(--grey-10);
@@ -260,6 +260,7 @@ input:checked + .toggle:before {
   padding: 10px 5px;
   text-align: center;
   width: 70px;
+  height: 75px;
   vertical-align: top;
   transition: background 0.1s, color 0.1s;
   cursor: pointer;
