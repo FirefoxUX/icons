@@ -1,0 +1,45 @@
+#icon-details [type="checkbox"]:not(:checked) + label, 
+#icon-details [type="checkbox"]:checked + label {
+  cursor: pointer;
+  padding-left: 32px;
+  position: relative;
+}
+
+#icon-details [type="checkbox"]:not(:checked), 
+#icon-details [type="checkbox"]:checked {
+  left: -9999px;
+  position: absolute;
+}
+
+#icon-details [type="checkbox"]:not(:checked) + label::after, 
+#icon-details [type="checkbox"]:checked + label::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  padding: 3px;
+  width: 16px;
+  height: 16px;
+  left: 0;
+}
+
+#icon-details [type="checkbox"]:checked + label::after {
+  background: url("../images/check.svg") no-repeat center center;
+}
+
+#icon-details [type="checkbox"]:not(:checked) + label::before, 
+#icon-details [type="checkbox"]:checked + label::before {
+  background-color: var(--white);
+  border: 1px solid var(--grey-30);
+  border-radius: 3px;
+  content: '';
+  height: 20px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 20px;
+}
+
+#icon-details [type="checkbox"]:disabled + label{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
