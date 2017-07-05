@@ -49,6 +49,8 @@ body {
 /** icon details **/
 
 #icon-details {
+  display: flex;
+  flex-direction: column;
   background-color: var(--white);
   height: calc(100vh - 50px);
   position: fixed;
@@ -69,9 +71,6 @@ body {
 }
 
 #icon-details footer {
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
   display: flex;
   justify-content: flex-end;
   padding: 24px 0;
