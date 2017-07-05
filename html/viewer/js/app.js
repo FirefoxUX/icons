@@ -9,40 +9,33 @@ var IconViewer = {
         this.searchEl.value = location.hash.replace("#", "");
       }
     }
-    document.querySelector('#icon-details .close-button').addEventListener('click', e => {
-      updateSidebar();
+    this.iconListEl.addEventListener("click", ({ target }) => {
+      if (!target.classList.contains("icon-display")) {
+        updateSidebar();
+        return;
+      }
+      updateSidebar(target);
     });
+    document.querySelector('#icon-details .close-button')
+      .addEventListener('click', () => updateSidebar());
     document.querySelector('#download a').addEventListener('click', e => {
+      updateDownloadUrl();
       ga('send', 'event', 'icons', 'click', e.target.dataset.path);
     });
-    let preview = document.querySelector('#icon-details .preview');
-    console.log('preview', preview);
-    document.querySelector('#icon-details .fill').addEventListener('click', e => {
-      if (e.target.localName === 'input') {
-        let newColor;
-        switch (e.originalTarget.id) {
-          case 'light':
-            newColor = 'rgba(249, 249, 250, .8)';
-            break;
-          case 'dark':
-            newColor = 'rgba(12, 12, 13, .8)';
-            break;
-          default:
-            newColor = 'context-fill';
-            break;
-        }
-        for (let id of ['context-fill', 'light', 'dark']) {
-          console.log('preview', id, e.originalTarget.id)
-          preview.classList.toggle(id, e.originalTarget.id === id);
-        }
-        let fills = document.querySelectorAll('svg .changeme');
-        fills.forEach(fill => {
-          fill.setAttribute('fill', newColor);
-        })
-      }
-    });
+    this.previewEl = document.querySelector('#icon-details .preview');
+
+    document.querySelector('#icon-details .fill').addEventListener('click', updatePreview);
 
     this.showAllIcons();
+  },
+
+  getSelected() {
+    return document.querySelector(".icon-display.selected");
+  },
+
+  setSelected(element) {
+    let icons = document.querySelectorAll(".icon-display");
+    icons.forEach(e => e.classList.toggle("selected", e === element));
   },
 
   displayDirectory: function(directory) {
@@ -53,16 +46,6 @@ var IconViewer = {
         "data-category": directory.name
       },
       parent: this.iconListEl
-    });
-    directoryEl.addEventListener('click', e => {
-      let target = e.target;
-      if (target.classList.contains('directory-display')) {
-        target = null;
-      }
-      while (target && !target.classList.contains('icon-display')) {
-        target = target.parentNode;
-      }
-      updateSidebar(target);
     });
     var items = directory.items;
     for (var i = 0; i < items.length; i++) {
@@ -75,12 +58,13 @@ var IconViewer = {
       tagName: "div",
       attributes: {
         class: "icon-display",
-        href: IconList.getFullIconURI(icon, dirName),
+        "data-uri": IconList.getFullIconURI(icon, dirName),
         download: icon,
         target: "_blank",
         "data-icon": icon.replace(".svg", "").replace(/\-/g, " "),
         "data-category": dirName,
-        "data-path": `${dirName}/${icon}`
+        "data-path": `${dirName}/${icon}`,
+        "data-filename": icon
       },
       parent: container
     });
@@ -173,9 +157,9 @@ function createNode(options) {
 
 function updateSidebar(icon) {
   let details = document.getElementById('icon-details');
-  details.classList.toggle('show', icon);
-  let selected = document.querySelectorAll('.icon-display.selected');
-  selected.forEach(e => e.classList.remove('selected'));
+  details.classList.toggle('show', !!icon);
+
+  IconViewer.setSelected(icon);
 
   if (!icon) {
     return;
@@ -183,22 +167,44 @@ function updateSidebar(icon) {
 
   ga('send', 'event', 'icons', 'preview', icon.dataset.path);
 
-  icon.classList.add('selected');
-  let image = icon.querySelector('img').src;
+  let selectedFill = document.querySelector("input[name='fill']:checked").value;
+
   details.querySelector('.name').textContent = icon.dataset.icon;
-  fetch(image).then(response => {
+  updatePreview();
+}
+
+function updatePreview() {
+  fetch(IconViewer.getSelected().dataset.uri).then(response => {
     return response.text();
   }).then(data => {
-    let icon = details.querySelector('.preview .icon');
+    let icon = document.querySelector('#icon-details .preview .icon');
     icon.innerHTML = data;
-    let fills = icon.querySelectorAll('[fill="context-fill"]');
-    fills.forEach(fill => {
-      fill.classList.add('changeme');
-    })
-  });
 
-  let download = document.querySelector('#download a');
-  download.href = image;
-  download.setAttribute('download', icon.dataset.path.replace(`${icon.dataset.category}/`, ''));
-  download.dataset.path = icon.dataset.path;
+    let fills = ['context-fill', 'light', 'dark'];
+    let selected = document.querySelector("input[name='fill']:checked");
+    if (fills.includes(selected.id)) {
+      for (let id of fills) {
+        IconViewer.previewEl.classList.toggle(id, selected.id === id);
+      }
+    }
+    let elements = IconViewer.previewEl.querySelectorAll('[fill="context-fill"]');
+    elements.forEach(el => {
+      el.setAttribute('fill', selected.value);
+    });
+
+    updateDownloadUrl();
+  });
 }
+
+function updateDownloadUrl() {
+  let selectedFormat = document.querySelector(".platform.section input:checked").value;
+  let selectedIcon = IconViewer.getSelected();
+
+  let svg = document.querySelector("#icon-details .preview .icon").innerHTML;
+  let url = FORMATS[selectedFormat].export(svg);
+  let download = document.querySelector('#download a');
+  download.href = url;
+  download.setAttribute('download', selectedIcon.dataset.filename);
+  download.dataset.path = selectedIcon.dataset.path;
+}
+
