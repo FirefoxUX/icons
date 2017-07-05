@@ -1,42 +1,84 @@
 @import url(https://fonts.googleapis.com/css?family=Fira+Sans:400,300);
 
+:root {
+  --white: #ffffff;
+  --blue-50: #0a84ff;
+  --blue-60: #0060df;
+  --grey-10: #f9f9fa;
+  --grey-30: #d7d7db;
+  --grey-50: #737373;
+  --grey-70: #4a4a4f;
+  --grey-90: #0c0c0d;
+  --photon-timing-fuction: cubic-bezier(.07,.95,0,1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 /** Global styles **/
 body {
   font-family: "Fira Sans", Arial, sans-serif;
   margin: 0;
   padding: 0;
-  color: #333;
-  background: #f9f9fa;
-  box-sizing: border-box;
+  color: var(--grey-90);
+  background-color: var(--grey-10);
 }
+
 .hidden {
   display: none !important;
 }
+
 #loading {
   text-align: center;
   font-size: 20px;
   margin-top: 30px;
 }
+
 #headline {
   font-size: 40px;
-  font-weight: 300;
+  font-weight: 400;
   padding: 50px 100px;
-  background: white;
+  background-color: var(--white);
 }
+
 #icon-list {
   margin: 0 300px 0 100px;
 }
 
 /** icon details **/
+
 #icon-details {
-  background: white;
-  height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  height: calc(100vh - 50px);
   position: fixed;
-  right: -320px;
+  right: -440px;
   top: 50px;
-  transition: right 1s cubic-bezier(.07,.95,0,1);;
-  width: 300px;
-  padding: 10px;
+  transition: right 1s var(--photon-timing-fuction);
+  width: 400px;
+  border-left: solid 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+#icon-details header {
+  padding: 48px 48px 0 48px;
+}
+
+#icon-details main {
+  flex-grow: 1;
+  padding: 0 48px;
+}
+
+#icon-details footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 0;
+  width: 400px;
+  padding: 24px 48px;
+  border-top: solid 1px rgba(0, 0, 0, 0.1);
+  background-color: var(--grey-10);
 }
 
 #icon-details.show {
@@ -44,72 +86,119 @@ body {
 }
 
 #icon-details h1 {
-  font-size: 20px;
-  font-weight: unset;
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0 0 24px 0;
 }
 
 #icon-details .close-button {
-  background-image: url('../../icons/deprecated-developer/close.svg');
+  background-image: url('../../icons/new/stop-16.svg');
   background-position: center;
-  background-size: contain;
-  display: inline-block;
-  height: 24px;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  transition: all 0.1s var(--photon-timing-fuction);
   position: absolute;
-  right: 12px;
   top: 24px;
+  right: 24px;
   width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
 #icon-details .close-button:hover {
-  background-color: #ebebeb;
+  background-color: var(--grey-30);
 }
 
 #icon-details .close-button:active {
-  background-color: #dcdcdc;
+  transform: scale(1.2);
 }
 
 #icon-details .section {
-  margin: 16px 0;
+  margin: 48px 0;
 }
+
 #icon-details .title {
-  font-weight: bold;
+  display: inline-block;
+  font-weight: 500;
 }
+
 #icon-details .preview {
-  border-bottom: 1px solid #333;
-  border-top: 1px solid #333;
-  padding: 32px;
+  border-top: solid 1px rgba(0, 0, 0, 0.1);
+  padding: 32px 32px 16px 32px;
   text-align: center;
 }
+
 #icon-details img {
-  width: 32px;
+  width: 64px;
 }
+
 #icon-details .name {
-  margin-bottom: 20px;
+  padding: 0 32px 32px 32px;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  text-align: center;
   text-transform: capitalize;
 }
+
+/** icon details checkbox **/
+
+.checkbox,
+.radio {
+  margin: 12px 0;
+}
+
+label span {
+  display: inline;
+  vertical-align: bottom;
+  line-height: 1;
+}
+
+label small {
+  vertical-align: bottom;
+  font-size: 12px;
+  line-height: 1.05;
+  margin-left: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+input:checked + .toggle,
+input:focus + .toggle {
+  background-color: var(--blue-50);
+}
+
+input:checked + .toggle:before {
+  transform: translateX(18px);
+  border-color: var(--blue-50);
+}
+
+/** Footer Buttons **/
+
 #download {
-  margin-top: 32px;
-  text-align: center;
+  text-align: right;
+  cursor: pointer;
 }
+
 #download a {
-  background-color: #0a84ff;
-  border: none;
-  color: #fff;
-  padding: 10px 14px;
+  display: block;
+  background-color: var(--blue-50);
+  color: var(--white);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  padding: 12px 24px;
   text-decoration: none;
-}
-#download a img {
-  vertical-align: sub;
-  width: 16px;
+  border-radius: 3px;
 }
 
 /** Embed version **/
+
 .embed {
-  color: #6a6a6a;
+  color: var(--grey-50);
 }
+
 .embed #icon-list {
   margin: 0;
 }
+
 .embed h2 {
   font-size: 45px;
   font-style: italic;
@@ -119,6 +208,7 @@ body {
 }
 
 /** Search input **/
+
 #search-input {
   width: 100%;
   padding: 15px 100px;
@@ -126,42 +216,45 @@ body {
   font-family: inherit;
   font-size: 20px;
   border-width: 0 0 1px 0;
-  border-color: #eee;
+  border-color: var(--grey-30);
   border-style: solid;
   position: sticky;
   top: 50px;
-  box-sizing: border-box;
   background-image: url(../../icons/new/search-16.svg);
   background-position: calc((100px - 16px) / 2) center;
   background-repeat: no-repeat;
-  color: #333;
+  color: var(--grey-90);
 }
+
 #search-input.filled {
-  background-color: #C9E1FB;
-  border-color: #0a84ff;
+  border-color: var(--blue-50);
 }
+
 #search-input[disabled] {
   opacity: 0.5;
-  background-color: #fff;
+  background-color: var(--white);
 }
 
 /** Directory display **/
+
 .directory-display::before {
   content: attr(data-category);
-  color: #737373;
+  color: var(--grey-70);
   display: block;
   font-weight: 400;
   font-size: 16px;
   margin-bottom: 15px;
   text-transform: capitalize;
 }
+
 .directory-display {
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid var(--grey-30);
   padding-bottom: 10px;
   margin-bottom: 28px;
 }
 
 /** Icon display **/
+
 .icon-display {
   display: inline-block;
   padding: 10px 5px;
@@ -174,18 +267,22 @@ body {
   text-decoration: none;
   margin-right: 2px;
 }
+
 .icon-display:hover,
 .icon-display.selected {
-  background: #ebebeb;
+  background: var(--grey-30);
 }
+
 .icon-display:active {
-  background: #0a84ff;
-  color: #f9f9fa;
+  background-color: var(--blue-50);
+  color: var(--white);
 }
+
 .icon-display:active img {
   -webkit-filter: contrast(0) brightness(200%);
   filter: contrast(0) brightness(200%);
 }
+
 .icon-display img {
   transition: filter 0.1s;
   max-width: 16px;
@@ -194,6 +291,7 @@ body {
   -moz-user-select: none;
   user-select: none;
 }
+
 .icon-display::after {
   content: attr(data-icon);
   font-size: 10px;
