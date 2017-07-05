@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Fira+Sans:400,300);
 
 :root {
+  --white: #ffffff;
   --blue-50: #0a84ff;
   --blue-60: #0060df;
   --grey-10: #f9f9fa;
@@ -38,7 +39,7 @@ body {
   font-size: 40px;
   font-weight: 400;
   padding: 50px 100px;
-  background: white;
+  background-color: var(--white);
 }
 
 #icon-list {
@@ -48,7 +49,7 @@ body {
 /** icon details **/
 
 #icon-details {
-  background: white;
+  background-color: var(--white);
   height: 100vh;
   position: fixed;
   right: -440px;
@@ -175,7 +176,7 @@ body {
 
 #icon-details [type="checkbox"]:not(:checked) + label::before, 
 #icon-details [type="checkbox"]:checked + label::before {
-  background-color: white;
+  background-color: var(--white);
   border: 1px solid var(--grey-30);
   border-radius: 3px;
   content: '';
@@ -223,7 +224,7 @@ body {
 
 #icon-details [type="radio"]:not(:checked) + label::before, 
 #icon-details [type="radio"]:checked + label::before {
-  background: white;
+  background: var(--white);
   border: 1px solid var(--grey-30);
   border-radius: 100%;
   content: '';
@@ -283,7 +284,7 @@ label small {
   width: 20px;
   left: 0;
   bottom: 0;
-  background-color: white;
+  background-color: var(--white);
   transition: all .3s var(--photon-timing-fuction);
   border-radius: 100%;
   border: 1px solid var(--grey-30);
@@ -309,7 +310,7 @@ input:checked + .toggle:before {
 #download a {
   display: block;
   background-color: var(--blue-50);
-  color: white;
+  color: var(--white);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   padding: 12px 24px;
@@ -320,7 +321,7 @@ input:checked + .toggle:before {
 /** Embed version **/
 
 .embed {
-  color: #6a6a6a;
+  color: var(--grey-50);
 }
 
 .embed #icon-list {
@@ -344,31 +345,30 @@ input:checked + .toggle:before {
   font-family: inherit;
   font-size: 20px;
   border-width: 0 0 1px 0;
-  border-color: #eee;
+  border-color: var(--grey-30);
   border-style: solid;
   position: sticky;
   top: 50px;
   background-image: url(../../icons/new/search-16.svg);
   background-position: calc((100px - 16px) / 2) center;
   background-repeat: no-repeat;
-  color: #333;
+  color: var(--grey-90);
 }
 
 #search-input.filled {
-  background-color: #C9E1FB;
-  border-color: #0a84ff;
+  border-color: var(--blue-50);
 }
 
 #search-input[disabled] {
   opacity: 0.5;
-  background-color: white;
+  background-color: var(--white);
 }
 
 /** Directory display **/
 
 .directory-display::before {
   content: attr(data-category);
-  color: #737373;
+  color: var(--grey-70);
   display: block;
   font-weight: 400;
   font-size: 16px;
@@ -377,7 +377,7 @@ input:checked + .toggle:before {
 }
 
 .directory-display {
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid var(--grey-30);
   padding-bottom: 10px;
   margin-bottom: 28px;
 }
@@ -399,12 +399,12 @@ input:checked + .toggle:before {
 
 .icon-display:hover,
 .icon-display.selected {
-  background: #ebebeb;
+  background: var(--grey-30);
 }
 
 .icon-display:active {
-  background: #0a84ff;
-  color: #f9f9fa;
+  background-color: var(--blue-50);
+  color: var(--white);
 }
 
 .icon-display:active img {
