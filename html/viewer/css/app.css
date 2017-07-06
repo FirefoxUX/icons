@@ -132,6 +132,7 @@ body {
   text-align: center;
   fill: currentColor;
   border: solid 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(9, 6, 12, 0.1);
   border-radius: 4px;
 }
 
