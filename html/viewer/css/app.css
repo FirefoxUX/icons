@@ -164,9 +164,17 @@ body {
 }
 
 label span {
-  display: inline;
+  display: inline-block;
   vertical-align: bottom;
   line-height: 1;
+}
+
+label code {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 4px 4px 2px;
+  background-color: var(--grey-30);
+  border-radius: 4px;
 }
 
 label small {
