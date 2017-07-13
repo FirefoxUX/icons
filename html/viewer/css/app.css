@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans:400,300);
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:400);
 
 :root {
   --white: #ffffff;
@@ -229,7 +229,7 @@ input:checked + .toggle:before {
 .embed h2 {
   font-size: 45px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin-top: 17px;
   padding-top: 34px;
 }
