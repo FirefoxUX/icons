@@ -342,3 +342,10 @@ input:checked + .toggle:before {
   cursor: not-allowed;
   opacity: 0.3;
 }
+
+.icon-display[data-deprecated^="true"]:hover,
+.icon-display[data-deprecated^="true"]:active {
+  background-color: var(--grey-10);
+  transform: scale(1);
+  box-shadow: none;
+}
