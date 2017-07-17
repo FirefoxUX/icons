@@ -8,5 +8,5 @@
   <circle cx="15" cy="13" r="1"/>
   <circle cx="15" cy="3" r="1"/>
   <path d="M1.215 3.911l13 9 .411.285.57-.822-.411-.285-13-9-.411-.285-.57.822z"/>
-  <path fill-opacity=".3" d="M8 5h2v2H8zM8 8h2v2L9 8.711zM5 5.962V5h2v2h-.828l-.729-.368zM11 5h2v2h-2zM11 8h2v2h-2z"/>
+  <path fill-opacity=".3" d="M8 5h2v2H8zm0 3h2v2L9 8.711zM5 5.962V5h2v2h-.828l-.729-.368zM11 5h2v2h-2zm0 3h2v2h-2z"/>
 </svg>
