@@ -10,7 +10,7 @@ var IconViewer = {
       }
     }
     this.iconListEl.addEventListener("click", ({ target }) => {
-      if (!target.classList.contains("icon-display")) {
+      if (!target.classList.contains("icon-display") || target.dataset.deprecated == 'true') {
         updateSidebar();
         return;
       }
@@ -61,10 +61,11 @@ var IconViewer = {
         "data-uri": IconList.getFullIconURI(icon, dirName),
         download: icon,
         target: "_blank",
-        "data-icon": icon.replace(".svg", "").replace(/\-/g, " "),
+        "data-icon": icon.replace("deprecated-", "").replace(".svg", "").replace(/\-/g, " "),
         "data-category": dirName,
         "data-path": `${dirName}/${icon}`,
-        "data-filename": icon
+        "data-filename": icon,
+        "data-deprecated": icon.startsWith("deprecated-")
       },
       parent: container
     });

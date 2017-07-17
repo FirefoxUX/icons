@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans:400,300);
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:400);
 
 :root {
   --white: #ffffff;
@@ -94,11 +94,11 @@ body {
 }
 
 #icon-details .close-button {
-  background-image: url('../../icons/new/stop-16.svg');
+  background-image: url('../../icons/navigation/stop-16.svg');
   background-position: center;
   background-size: 16px 16px;
   background-repeat: no-repeat;
-  transition: background-color 0.3s var(--photon-timing-fuction), transform 0.3s var(--photon-timing-fuction);
+  transition: all 0.3s var(--photon-timing-fuction);
   position: absolute;
   top: 24px;
   right: 24px;
@@ -115,6 +115,7 @@ body {
 
 #icon-details .close-button:active {
   transform: scale(1.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.08);
 }
 
 #icon-details .section {
@@ -228,7 +229,7 @@ input:checked + .toggle:before {
 .embed h2 {
   font-size: 45px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin-top: 17px;
   padding-top: 34px;
 }
@@ -245,7 +246,7 @@ input:checked + .toggle:before {
   border-style: solid;
   position: sticky;
   top: 50px;
-  background-image: url(../../icons/new/search-16.svg);
+  background-image: url(../../icons/navigation/search-16.svg);
   background-position: 20px center;
   background-repeat: no-repeat;
   color: var(--grey-90);
@@ -265,17 +266,17 @@ input:checked + .toggle:before {
 
 .directory-display::before {
   content: attr(data-category);
-  color: var(--grey-70);
+  color: var(--grey-50);
   display: block;
-  font-weight: 400;
-  font-size: 20px;
+  font-size: 13px;
   text-transform: capitalize;
+  margin-bottom: 20px;
 }
 
 .directory-display {
   border-bottom: 1px solid var(--grey-30);
-  padding-bottom: 10px;
-  margin-bottom: 28px;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 /** Icon display **/
@@ -287,13 +288,12 @@ input:checked + .toggle:before {
   width: 84px;
   margin: 4px;
   vertical-align: top;
-  transition: transform 0.3s;
   cursor: pointer;
   color: inherit;
   text-decoration: none;
   border-radius: 4px;
-  background: var(--grey-10);
-  transition: background-color 0.3s var(--photon-timing-fuction), transform 0.3s var(--photon-timing-fuction);
+  background-color: var(--grey-10);
+  transition: all .3s var(--photon-timing-fuction);
 }
 
 @media screen and (min-width: 768px) {
@@ -304,11 +304,12 @@ input:checked + .toggle:before {
 
 .icon-display:hover,
 .icon-display.selected {
-  background: var(--grey-30);
+  background-color: var(--grey-30);
 }
 
 .icon-display:active {
   transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
 }
 
 .icon-display > * {
@@ -335,4 +336,16 @@ input:checked + .toggle:before {
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: capitalize;
+}
+
+.icon-display[data-deprecated^="true"] {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.icon-display[data-deprecated^="true"]:hover,
+.icon-display[data-deprecated^="true"]:active {
+  background-color: var(--grey-10);
+  transform: scale(1);
+  box-shadow: none;
 }

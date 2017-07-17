@@ -5,7 +5,6 @@
   <link href="css/app.css" rel="stylesheet"/>
   <link href="css/input-checkbox.css" rel="stylesheet"/>
   <link href="css/input-radio.css" rel="stylesheet"/>
-  <link href="css/input-toggle-switch.css" rel="stylesheet"/>
 </head>
 <body>
   <h1 id="headline">Photon Icons</h1>
@@ -25,7 +24,10 @@
         <div class="section platform">
           <div class="title">Platform</div>
           <div class="checkbox">
-            <input type="checkbox" value="svg" id="desktop-web" checked><label for="desktop-web"><span>Desktop/Web</span></label><br>
+            <input type="checkbox" value="svg" id="desktop" checked><label for="desktop"><span>Desktop</span></label><br>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" value="svg" id="web"><label for="web"><span>Web</span></label><br>
           </div>
           <div class="checkbox">
             <input type="checkbox" value="ios" id="ios" disabled><label for="ios"><span>iOS</span><small>Coming Soon</small></label><br>
@@ -45,14 +47,6 @@
           <div class="radio">
             <input type="radio" name="fill" value="rgba(249, 249, 250, .8)" id="light"><label for="light"><span>Light</span></label><br>
           </div>
-        </div>
-        <!-- Display this section only if iOS and/or Android checkboxes are selected -->
-        <div class="section" style="display: none">
-          <div class="title">Include Source File</div>
-          <label class="switch">
-            <input type="checkbox">
-            <div class="toggle"></div>
-          </label>
         </div>
       </div>
     </main>
