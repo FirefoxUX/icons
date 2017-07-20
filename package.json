@@ -4,7 +4,10 @@
   "main": "Gruntfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node build.js"
+    "build": "node build.js",
+    "serve": "ws -d dist",
+    "watch": "watch \"npm run build\" html icons",
+    "dev": "npm run build && npm-run-all --parallel serve watch"
   },
   "repository": {
     "type": "git",
@@ -17,6 +20,9 @@
   },
   "homepage": "https://github.com/nt1m/firefox-svg-icons",
   "devDependencies": {
-    "shelljs": "0.7.7"
+    "local-web-server": "1.2.7",
+    "npm-run-all": "4.0.2",
+    "shelljs": "0.7.7",
+    "watch": "1.0.2"
   }
 }

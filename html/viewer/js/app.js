@@ -9,8 +9,35 @@ var IconViewer = {
         this.searchEl.value = location.hash.replace("#", "");
       }
     }
+    this.iconListEl.addEventListener("click", ({ target }) => {
+      if (!target.classList.contains("icon-display") || target.dataset.deprecated == 'true') {
+        updateSidebar();
+        return;
+      }
+      updateSidebar(target);
+    });
+    document.querySelector('#icon-details .close-button')
+      .addEventListener('click', () => updateSidebar());
+    document.querySelector('#download a').addEventListener('click', e => {
+      updateDownloadUrl();
+      ga('send', 'event', 'icons', 'click', e.target.dataset.path);
+    });
+    this.previewEl = document.querySelector('#icon-details .preview');
+
+    document.querySelector('#icon-details .fill').addEventListener('click', updatePreview);
+
     this.showAllIcons();
   },
+
+  getSelected() {
+    return document.querySelector(".icon-display.selected");
+  },
+
+  setSelected(element) {
+    let icons = document.querySelectorAll(".icon-display");
+    icons.forEach(e => e.classList.toggle("selected", e === element));
+  },
+
   displayDirectory: function(directory) {
     var directoryEl = createNode({
       tagName: "div",
@@ -25,16 +52,20 @@ var IconViewer = {
       this.displayIcon(items[i], directoryEl, directory.name);
     }
   },
+
   displayIcon: function(icon, container, dirName) {
     var iconContainer = createNode({
-      tagName: "a",
+      tagName: "div",
       attributes: {
         class: "icon-display",
-        href: IconList.getFullIconURI(icon, dirName),
+        "data-uri": IconList.getFullIconURI(icon, dirName),
         download: icon,
         target: "_blank",
-        "data-icon": icon.replace(".svg", "").replace(/\-/g, " "),
-        "data-category": dirName
+        "data-icon": icon.replace("deprecated-", "").replace(".svg", "").replace(/\-/g, " "),
+        "data-category": dirName,
+        "data-path": `${dirName}/${icon}`,
+        "data-filename": icon,
+        "data-deprecated": icon.startsWith("deprecated-")
       },
       parent: container
     });
@@ -45,10 +76,8 @@ var IconViewer = {
       },
       parent: iconContainer
     });
-    iconContainer.onclick = () => {
-      ga('send', 'event', 'icons', 'click', `${dirName}/${icon}`);
-    }
   },
+
   filterIcons: function() {
     var query = "";
     if (this.searchEl) {
@@ -87,6 +116,7 @@ var IconViewer = {
       }
     }
   },
+
   showAllIcons: function() {
     var directories = IconList.getAllDirectories();
     for (var directory of directories) {
@@ -102,6 +132,7 @@ var IconViewer = {
     }
   }
 };
+
 window.addEventListener("DOMContentLoaded", IconViewer.init.bind(IconViewer));
 
 // Helpers
@@ -124,3 +155,57 @@ function createNode(options) {
 
   return el;
 }
+
+function updateSidebar(icon) {
+  let details = document.getElementById('icon-details');
+  details.classList.toggle('show', !!icon);
+
+  IconViewer.setSelected(icon);
+
+  if (!icon) {
+    return;
+  }
+
+  ga('send', 'event', 'icons', 'preview', icon.dataset.path);
+
+  let selectedFill = document.querySelector("input[name='fill']:checked").value;
+
+  details.querySelector('.name').textContent = icon.dataset.icon;
+  updatePreview();
+}
+
+function updatePreview() {
+  fetch(IconViewer.getSelected().dataset.uri).then(response => {
+    return response.text();
+  }).then(data => {
+    let icon = document.querySelector('#icon-details .preview .icon');
+    icon.innerHTML = data;
+
+    let fills = ['context-fill', 'light', 'dark'];
+    let selected = document.querySelector("input[name='fill']:checked");
+    if (fills.includes(selected.id)) {
+      for (let id of fills) {
+        IconViewer.previewEl.classList.toggle(id, selected.id === id);
+      }
+    }
+    let elements = IconViewer.previewEl.querySelectorAll('[fill="context-fill"]');
+    elements.forEach(el => {
+      el.setAttribute('fill', selected.value);
+    });
+
+    updateDownloadUrl();
+  });
+}
+
+function updateDownloadUrl() {
+  let selectedFormat = document.querySelector(".platform.section input:checked").value;
+  let selectedIcon = IconViewer.getSelected();
+
+  let svg = document.querySelector("#icon-details .preview .icon").innerHTML;
+  let url = FORMATS[selectedFormat].export(svg);
+  let download = document.querySelector('#download a');
+  download.href = url;
+  download.setAttribute('download', selectedIcon.dataset.filename);
+  download.dataset.path = selectedIcon.dataset.path;
+}
+
