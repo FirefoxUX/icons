@@ -339,13 +339,33 @@ input:checked + .toggle:before {
 }
 
 .icon-display[data-deprecated^="true"] {
+  position: relative;
   cursor: not-allowed;
   opacity: 0.3;
 }
 
+.icon-display[data-deprecated^="true"]::before {
+  content: "Outdated";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: red;
+  color: white;
+  opacity: 0;
+  font-size: 12px;
+  border-radius: 2px;
+  padding: 1px 3px 0px;
+  transition: opacity .3s var(--photon-timing-fuction);
+}
+
 .icon-display[data-deprecated^="true"]:hover,
 .icon-display[data-deprecated^="true"]:active {
-  background-color: var(--grey-10);
+  position: relative;
   transform: scale(1);
   box-shadow: none;
+}
+
+.icon-display[data-deprecated^="true"]:hover::before,
+.icon-display[data-deprecated^="true"]:active::before {
+  opacity: 1;
 }
