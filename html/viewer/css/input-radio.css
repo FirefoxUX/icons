@@ -38,3 +38,8 @@
   position: absolute;
   top: 0;
 }
+
+#icon-details [type="radio"]:disabled + label{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
