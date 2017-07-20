@@ -1,8 +1,11 @@
 language: node_js
 node_js:
 - 7.7.0
-# safelist
-branches:
-  only:
-  - master
-script: bash ./deploy.sh
+before_script: npm run build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GH_TOKEN
+  local_dir: dist
+  on:
+    branch: master

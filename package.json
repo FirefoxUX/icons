@@ -3,7 +3,7 @@
   "description": "SVG files used in Firefox",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Tests?  We don't need tests!\"",
     "build": "node build.js",
     "serve": "ws -d dist",
     "watch": "watch \"npm run build\" html icons",
