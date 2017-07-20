@@ -1,23 +1,11 @@
 #!/bin/bash
 
-# Please note this is super brittle code since it relies on stuff like line number instead of pattern matching; so far only works with SVGs as they are when outputted from Adobe Illustrator.
+for svg in `ls **/*.svg`
+do
 
-# first argument is our svg file
-svg="$1"
-
-# Format the file with svgo
-svgo $1 --pretty --indent=2
-
-# delete lines 1-4 in place, which is where Adobe outputs <style> and <svg>
-gsed -i -e '1,4d;' $svg
-
-# Remove classes
-gsed -i 's/\(<[^>]*\) \+class="[^"]*"\([^>]*>\)/\1\2/' $svg
-
-# delete the last empty line if it's the last line of the file
-gsed -i '${/^$/d;}' $svg
+# format the file with svgo
+svgo $svg --pretty --indent=2
 
 # append our Mozilla license to the beginning of the file
 cat /usr/local/bin/header.txt | cat - $svg > temp && mv temp $svg
-
-# I'm sure those could have all been combined, but idk regular expressions or sed very well ¯\_(ツ)_/¯
+done

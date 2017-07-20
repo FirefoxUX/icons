@@ -3,6 +3,8 @@
 
 var shell = require('shelljs');
 
+shell.rm('-rf', 'dist');
+shell.mkdir('dist');
 shell.cp('-R', ['html/*', 'icons'], 'dist');
 const dirs = shell.ls('-R', 'icons');
 

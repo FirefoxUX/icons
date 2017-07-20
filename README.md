@@ -67,10 +67,7 @@ The executable for cleaning svgs can be found [here](README-content/clean-svg). 
 2. ```npm install -g svgo``` (Installation instructions for Node can be found [here](https://nodejs.org/en/).)
 3. Move both the executable and ```header.txt``` to ```usr/local/bin```.
 4. Make the bash script executable with ```chmod 755 clean-svg```.
-
-Now you can call ```clean-svg``` from anywhere on your system to clean up SVGs according to the Firefox guidelines.
-
-_Please note_: this script edits the first ```<svg>``` line of the file to have a specific viewport and fill color; locally you might want to change this to fit your needs.
+5. `cd icons` and then run `clean-svg`
 
 <!--- ### Node Script -->
 
