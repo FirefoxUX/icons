@@ -349,8 +349,8 @@ input:checked + .toggle:before {
   position: absolute;
   top: 2px;
   right: 2px;
-  background-color: red;
-  color: white;
+  background-color: var(--grey-90);
+  color: var(--white);
   opacity: 0;
   font-size: 12px;
   border-radius: 2px;
