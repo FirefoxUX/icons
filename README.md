@@ -1,4 +1,4 @@
-# Firefox SVG Assets  [![Build Status](https://travis-ci.org/FirefoxUX/firefox-icons.svg?branch=master)](https://travis-ci.org/FirefoxUX/firefox-icons)
+# Firefox SVG Assets  [![Build Status](https://travis-ci.org/FirefoxUX/icons.svg?branch=master)](https://travis-ci.org/FirefoxUX/icons)
 If you'd like to contribute SVG assets to Firefox, this is meant to be a handy guide for making sure you SVGs are compressed and neatly formatted as possible :tada:
 
 ## Table of Contents
