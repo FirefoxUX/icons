@@ -6,7 +6,7 @@ var IconViewer = {
       this.searchEl.setAttribute("disabled", "disabled");
       this.searchEl.addEventListener("input", this.filterIcons.bind(this));
       if (location.hash) {
-        this.searchEl.value = location.hash.replace("#", "");
+        this.searchEl.value = decodeURIComponent(location.hash.replace("#", ""));
       }
     }
     this.iconListEl.addEventListener("click", ({ target }) => {
