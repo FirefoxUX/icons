@@ -1,5 +1,5 @@
 {
-  "name": "firefox-svg-icons",
+  "name": "photon-icons",
   "description": "SVG files used in Firefox",
   "main": "Gruntfile.js",
   "version": "2.0.0",
