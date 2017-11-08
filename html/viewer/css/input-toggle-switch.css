@@ -1,0 +1,35 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  float: right;
+  width: 40px;
+  height: 22px;
+  margin-top: -1px;
+}
+
+.switch input {display:none;}
+
+.toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--grey-30);
+  transition: all .3s var(--photon-timing-fuction);
+  border-radius: 20px;
+}
+
+.toggle:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0;
+  bottom: 0;
+  background-color: var(--white);
+  transition: all .3s var(--photon-timing-fuction);
+  border-radius: 100%;
+  border: 1px solid var(--grey-30);
+}

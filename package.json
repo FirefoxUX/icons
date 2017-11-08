@@ -1,22 +1,29 @@
 {
-  "name": "firefox-svg-icons",
+  "name": "photon-icons",
   "description": "SVG files used in Firefox",
   "main": "Gruntfile.js",
+  "version": "2.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node build.js"
+    "test": "echo \"Tests?  We don't need tests!\"",
+    "build": "node build.js",
+    "serve": "ws -d dist",
+    "watch": "watch \"npm run build\" html icons",
+    "dev": "npm run build && npm-run-all --parallel serve watch"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nt1m/firefox-svg-icons"
+    "url": "https://github.com/FirefoxUX/icons"
   },
   "author": "Mozilla",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/nt1m/firefox-svg-icons/issues"
+    "url": "https://github.com/FirefoxUX/icons/issues"
   },
-  "homepage": "https://github.com/nt1m/firefox-svg-icons",
+  "homepage": "https://github.com/FirefoxUX/icons",
   "devDependencies": {
-    "shelljs": "0.7.7"
+    "local-web-server": "1.2.7",
+    "npm-run-all": "4.0.2",
+    "shelljs": "0.7.7",
+    "watch": "1.0.2"
   }
 }
