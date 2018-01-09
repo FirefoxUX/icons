@@ -240,7 +240,7 @@ input:checked + .toggle:before {
   border-color: var(--grey-30);
   border-style: solid;
   position: sticky;
-  top: 50px;
+  top: 0;
   background-image: url(../../icons/navigation/search-16.svg);
   background-position: 20px center;
   background-repeat: no-repeat;
