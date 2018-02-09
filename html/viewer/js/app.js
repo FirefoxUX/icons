@@ -38,41 +38,42 @@ var IconViewer = {
     icons.forEach(e => e.classList.toggle("selected", e === element));
   },
 
-  displayDirectory: function(directory) {
-    var directoryEl = createNode({
+  displayCategory: function(category) {
+    var categoryEl = createNode({
       tagName: "div",
       attributes: {
-        class: "directory-display",
-        "data-category": directory.name
+        class: "category-display",
+        "data-category": category.name
       },
       parent: this.iconListEl
     });
-    var items = directory.items;
+    var items = category.items;
     for (var i = 0; i < items.length; i++) {
-      this.displayIcon(items[i], directoryEl, directory.name);
+      this.displayIcon(items[i], categoryEl, category.name);
     }
   },
 
-  displayIcon: function(icon, container, dirName) {
+  displayIcon: function(icon, container, category) {
     var iconContainer = createNode({
       tagName: "div",
       attributes: {
         class: "icon-display",
-        "data-uri": IconList.getFullIconURI(icon, dirName),
-        download: icon,
+        "data-uri": IconList.getFullIconURI(icon),
+        download: icon.name + '.svg',
         target: "_blank",
-        "data-icon": icon.replace("deprecated-", "").replace(".svg", "").replace(/\-/g, " "),
-        "data-category": dirName,
-        "data-path": `${dirName}/${icon}`,
-        "data-filename": icon,
-        "data-deprecated": icon.startsWith("deprecated-")
+        "data-icon": icon.name.replace("deprecated-", "").replace(".svg", "").replace(/\-/g, " "),
+        "data-category": category,
+        "data-tags": (icon.tags || []).join(','),
+        "data-path": icon.location,
+        "data-filename": icon.name + '.svg',
+        "data-deprecated": icon.name.startsWith("deprecated-")
       },
       parent: container
     });
     var image = createNode({
       tagName: "img",
       attributes: {
-        src: IconList.getFullIconURI(icon, dirName)
+        src: IconList.getFullIconURI(icon)
       },
       parent: iconContainer
     });
@@ -85,6 +86,7 @@ var IconViewer = {
     }
     var allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
     location.hash = "#" + query;
+    query = query.toLowerCase();
     if (this.searchEl) {
       if (query == "") {
         this.searchEl.classList.remove("filled");
@@ -96,31 +98,32 @@ var IconViewer = {
       var icon = allIcons[i];
       if (icon.dataset.icon.indexOf(query) > -1 ||
           icon.dataset.category.indexOf(query) > -1 ||
+          icon.dataset.tags.indexOf(query) > -1 ||
           query == "") {
         icon.classList.remove("hidden");
       } else {
         icon.classList.add("hidden");
       }
     }
-    var allDirs = [].slice.call(this.iconListEl.querySelectorAll(".directory-display"));
-    for (var i = 0; i < allDirs.length; i++) {
-      var dir = allDirs[i];
-      var numberOfHiddenItems = dir.querySelectorAll(".hidden").length;
-      if ((dir.dataset.category.indexOf(query) > -1) ||
+    var categories = [].slice.call(this.iconListEl.querySelectorAll(".category-display"));
+    for (var i = 0; i < categories.length; i++) {
+      var category = categories[i];
+      var numberOfHiddenItems = category.querySelectorAll(".hidden").length;
+      if ((category.dataset.category.indexOf(query) > -1) ||
           query == "") {
-        dir.classList.remove("hidden");
-      } else if (numberOfHiddenItems == dir.childNodes.length) {
-        dir.classList.add("hidden");
+        category.classList.remove("hidden");
+      } else if (numberOfHiddenItems == category.childNodes.length) {
+        category.classList.add("hidden");
       } else {
-        dir.classList.remove("hidden");
+        category.classList.remove("hidden");
       }
     }
   },
 
   showAllIcons: function() {
-    var directories = IconList.getAllDirectories();
-    for (var directory of directories) {
-      this.displayDirectory(directory);
+    var categories = IconList.getAllCategories();
+    for (var category of categories) {
+      this.displayCategory(category);
     }
     document.getElementById("loading").remove();
     this.iconListEl.removeAttribute("hidden");
@@ -208,4 +211,3 @@ function updateDownloadUrl() {
   download.setAttribute('download', selectedIcon.dataset.filename);
   download.dataset.path = selectedIcon.dataset.path;
 }
-

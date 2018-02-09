@@ -8,8 +8,10 @@ shell.mkdir('dist');
 shell.cp('-R', ['html/*', 'icons'], 'dist');
 const dirs = shell.ls('-R', 'icons');
 
+const icons = require('photon-icons/photon-icons.json');
+
 let currDir;
-var images = [];
+let images = [];
 for (let file of dirs) {
   if (!file.endsWith('.svg')) {
     if (currDir) {
@@ -17,13 +19,35 @@ for (let file of dirs) {
     }
     currDir = {'name': file, 'items': []};
   } else {
-    file = file.replace(currDir.name + '/','');
-    currDir.items.push(file);
+    let name = file.replace(currDir.name + '/','').replace('.svg', '');
+    currDir.items.push({'name': name, 'location': file});
   }
 }
 if (currDir) {
   images.push(currDir);
 }
+for (let icon of icons.icons) {
+  for (let category of icon.categories) {
+    // find the entry in images with name == category.
+    let collection = images.find(x => x.name == category);
+    // If it doesn't exist, create it.
+    if (!collection) {
+      collection = {
+        name: category,
+        items: []
+      };
+      images.push(collection);
+    }
+    // Add the icon to that category.
+    let source = icon.source.desktop['16'];
+    let dest = 'dist/' + source;
+    shell.mkdir('-p', dest);
+    shell.rm('-r', dest);
+    shell.cp(require.resolve('photon-icons/' + source), dest);
+    collection.items.push({'name': icon.name, tags: icon.tags, 'location': source.replace('icons/', '')});
+  }
+}
+
 images = images.sort((a, b) => {
   const aName = a.name;
   const bName = b.name;
