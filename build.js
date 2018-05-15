@@ -5,29 +5,16 @@ var shell = require('shelljs');
 
 shell.rm('-rf', 'dist');
 shell.mkdir('dist');
-shell.cp('-R', ['html/*', 'icons'], 'dist');
-const dirs = shell.ls('-R', 'icons');
+shell.cp('-R', 'html/*', 'dist');
 
 const icons = require('photon-icons/photon-icons.json');
 
-let currDir;
 let images = [];
-for (let file of dirs) {
-  if (!file.endsWith('.svg')) {
-    if (currDir) {
-      images.push(currDir);
-    }
-    currDir = {'name': file, 'items': []};
-  } else {
-    let name = file.replace(currDir.name + '/','').replace('.svg', '');
-    currDir.items.push({'name': name, 'location': file});
-  }
-}
-if (currDir) {
-  images.push(currDir);
-}
 for (let icon of icons.icons) {
   for (let category of icon.categories) {
+    if (category == 'deprecated') {
+      continue;
+    }
     // find the entry in images with name == category.
     let collection = images.find(x => x.name == category);
     // If it doesn't exist, create it.
@@ -38,13 +25,19 @@ for (let icon of icons.icons) {
       };
       images.push(collection);
     }
+    let tags = icon.tags;
+    if (icon.categories.indexOf('deprecated') != -1) {
+      tags.push('deprecated');
+    }
     // Add the icon to that category.
-    let source = icon.source.desktop['16'];
-    let dest = 'dist/' + source;
-    shell.mkdir('-p', dest);
-    shell.rm('-r', dest);
-    shell.cp(require.resolve('photon-icons/' + source), dest);
-    collection.items.push({'name': icon.name, tags: icon.tags, 'location': source.replace('icons/', '')});
+    for (let size in icon.source.desktop) {
+      let source = icon.source.desktop[size]
+      let dest = 'dist/' + source;
+      // console.log(source, dest.replace(/\/[^\/]*$/, ''));
+      shell.mkdir('-p', dest.replace(/\/[^\/]*$/, ''));
+      shell.cp(require.resolve('photon-icons/' + source), dest);
+      collection.items.push({'name': icon.name, tags: tags, 'location': source.replace('icons/', '')});
+    }
   }
 }
 

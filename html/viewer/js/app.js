@@ -61,12 +61,12 @@ var IconViewer = {
         "data-uri": IconList.getFullIconURI(icon),
         download: icon.name + '.svg',
         target: "_blank",
-        "data-icon": icon.name.replace("deprecated-", "").replace(".svg", "").replace(/\-/g, " "),
+        "data-icon": icon.name.replace(".svg", "").replace(/\-/g, " "),
         "data-category": category,
         "data-tags": (icon.tags || []).join(','),
         "data-path": icon.location,
         "data-filename": icon.name + '.svg',
-        "data-deprecated": icon.name.startsWith("deprecated-")
+        "data-deprecated": icon.tags.indexOf("deprecated") != -1
       },
       parent: container
     });

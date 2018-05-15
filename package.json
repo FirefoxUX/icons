@@ -1,14 +1,13 @@
 {
-  "name": "photon-icons",
+  "name": "icons",
   "description": "SVG files used in Firefox",
   "main": "",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "scripts": {
     "test": "echo \"Tests?  We don't need tests!\"",
     "build": "node build.js",
-    "serve": "ws -d dist",
     "watch": "watch \"npm run build\" html icons",
-    "dev": "npm run build && npm-run-all --parallel serve watch"
+    "dev": "npm run build && npm watch"
   },
   "repository": {
     "type": "git",
@@ -24,10 +23,8 @@
   ],
   "homepage": "https://github.com/FirefoxUX/icons",
   "devDependencies": {
-    "local-web-server": "1.2.7",
-    "npm-run-all": "4.0.2",
-    "shelljs": "0.7.7",
+    "shelljs": "0.8.2",
     "watch": "1.0.2",
-    "photon-icons": "file:../design-tokens/photon-icons/"
+    "photon-icons": "3.0.0"
   }
 }
