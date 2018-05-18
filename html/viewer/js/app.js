@@ -39,7 +39,7 @@ var IconViewer = {
   },
 
   displayCategory: function(category) {
-    var categoryEl = createNode({
+    let categoryEl = createNode({
       tagName: "div",
       attributes: {
         class: "category-display",
@@ -47,21 +47,20 @@ var IconViewer = {
       },
       parent: this.iconListEl
     });
-    var items = category.items;
-    for (var i = 0; i < items.length; i++) {
-      this.displayIcon(items[i], categoryEl, category.name);
+    for (let item of category.items) {
+      this.displayIcon(item, categoryEl, category.name);
     }
   },
 
   displayIcon: function(icon, container, category) {
-    var iconContainer = createNode({
+    let iconContainer = createNode({
       tagName: "div",
       attributes: {
         class: "icon-display",
         "data-uri": IconList.getFullIconURI(icon),
         download: icon.name + '.svg',
         target: "_blank",
-        "data-icon": icon.name.replace(".svg", "").replace(/\-/g, " "),
+        "data-icon": icon.name.toLowerCase(),
         "data-category": category,
         "data-tags": (icon.tags || []).join(','),
         "data-path": icon.location,
@@ -70,7 +69,7 @@ var IconViewer = {
       },
       parent: container
     });
-    var image = createNode({
+    let image = createNode({
       tagName: "img",
       attributes: {
         src: IconList.getFullIconURI(icon)
@@ -80,11 +79,11 @@ var IconViewer = {
   },
 
   filterIcons: function() {
-    var query = "";
+    let query = "";
     if (this.searchEl) {
       query = this.searchEl.value.trim();
     }
-    var allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
+    let allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
     location.hash = "#" + query;
     query = query.toLowerCase();
     if (this.searchEl) {
@@ -94,8 +93,7 @@ var IconViewer = {
         this.searchEl.classList.add("filled");
       }
     }
-    for (var i = 0; i < allIcons.length; i++) {
-      var icon = allIcons[i];
+    for (let icon of allIcons) {
       if (icon.dataset.icon.indexOf(query) > -1 ||
           icon.dataset.category.indexOf(query) > -1 ||
           icon.dataset.tags.indexOf(query) > -1 ||
@@ -105,10 +103,9 @@ var IconViewer = {
         icon.classList.add("hidden");
       }
     }
-    var categories = [].slice.call(this.iconListEl.querySelectorAll(".category-display"));
-    for (var i = 0; i < categories.length; i++) {
-      var category = categories[i];
-      var numberOfHiddenItems = category.querySelectorAll(".hidden").length;
+    let categories = [].slice.call(this.iconListEl.querySelectorAll(".category-display"));
+    for (let category of categories) {
+      let numberOfHiddenItems = category.querySelectorAll(".hidden").length;
       if ((category.dataset.category.indexOf(query) > -1) ||
           query == "") {
         category.classList.remove("hidden");
@@ -121,8 +118,8 @@ var IconViewer = {
   },
 
   showAllIcons: function() {
-    var categories = IconList.getAllCategories();
-    for (var category of categories) {
+    let categories = IconList.getAllCategories();
+    for (let category of categories) {
       this.displayCategory(category);
     }
     document.getElementById("loading").remove();
@@ -140,10 +137,10 @@ window.addEventListener("DOMContentLoaded", IconViewer.init.bind(IconViewer));
 
 // Helpers
 function createNode(options) {
-  var el = document.createElement(options.tagName || "div");
+  let el = document.createElement(options.tagName || "div");
 
   if (options.attributes) {
-    for (var i in options.attributes) {
+    for (let i in options.attributes) {
       el.setAttribute(i, options.attributes[i]);
     }
   }
@@ -180,9 +177,9 @@ function updateSidebar(icon) {
 function updatePreview() {
   fetch(IconViewer.getSelected().dataset.uri).then(response => {
     return response.text();
-  }).then(data => {
+  }).then(innerHTML => {
     let icon = document.querySelector('#icon-details .preview .icon');
-    icon.innerHTML = data;
+    icon.innerHTML = innerHTML;
 
     let fills = ['context-fill', 'light', 'dark'];
     let selected = document.querySelector("input[name='fill']:checked");

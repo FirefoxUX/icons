@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Tests?  We don't need tests!\"",
     "build": "node build.js",
-    "watch": "watch \"npm run build\" html icons",
-    "dev": "npm run build && npm watch"
+    "watch": "watch \"npm run build\" html",
+    "dev": "npm run build && npm run watch"
   },
   "repository": {
     "type": "git",
@@ -23,8 +23,9 @@
   ],
   "homepage": "https://github.com/FirefoxUX/icons",
   "devDependencies": {
+    "photon-icons": "3.1.0",
+    "serve": "^6.5.7",
     "shelljs": "0.8.2",
-    "watch": "1.0.2",
-    "photon-icons": "3.0.0"
+    "watch": "1.0.2"
   }
 }
