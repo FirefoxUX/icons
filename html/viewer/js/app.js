@@ -38,53 +38,54 @@ var IconViewer = {
     icons.forEach(e => e.classList.toggle("selected", e === element));
   },
 
-  displayDirectory: function(directory) {
-    var directoryEl = createNode({
+  displayCategory: function(category) {
+    let categoryEl = createNode({
       tagName: "div",
       attributes: {
-        class: "directory-display",
-        "data-category": directory.name
+        class: "category-display",
+        "data-category": category.name
       },
       parent: this.iconListEl
     });
-    var items = directory.items;
-    for (var i = 0; i < items.length; i++) {
-      this.displayIcon(items[i], directoryEl, directory.name);
+    for (let item of category.items) {
+      this.displayIcon(item, categoryEl, category.name);
     }
   },
 
-  displayIcon: function(icon, container, dirName) {
-    var iconContainer = createNode({
+  displayIcon: function(icon, container, category) {
+    let iconContainer = createNode({
       tagName: "div",
       attributes: {
         class: "icon-display",
-        "data-uri": IconList.getFullIconURI(icon, dirName),
-        download: icon,
+        "data-uri": IconList.getFullIconURI(icon),
+        download: icon.name + '.svg',
         target: "_blank",
-        "data-icon": icon.replace("deprecated-", "").replace(".svg", "").replace(/\-/g, " "),
-        "data-category": dirName,
-        "data-path": `${dirName}/${icon}`,
-        "data-filename": icon,
-        "data-deprecated": icon.startsWith("deprecated-")
+        "data-icon": icon.name.toLowerCase(),
+        "data-category": category,
+        "data-tags": (icon.tags || []).join(','),
+        "data-path": icon.location,
+        "data-filename": icon.name + '.svg',
+        "data-deprecated": icon.tags.indexOf("deprecated") != -1
       },
       parent: container
     });
-    var image = createNode({
+    let image = createNode({
       tagName: "img",
       attributes: {
-        src: IconList.getFullIconURI(icon, dirName)
+        src: IconList.getFullIconURI(icon)
       },
       parent: iconContainer
     });
   },
 
   filterIcons: function() {
-    var query = "";
+    let query = "";
     if (this.searchEl) {
       query = this.searchEl.value.trim();
     }
-    var allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
+    let allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
     location.hash = "#" + query;
+    query = query.toLowerCase();
     if (this.searchEl) {
       if (query == "") {
         this.searchEl.classList.remove("filled");
@@ -92,35 +93,34 @@ var IconViewer = {
         this.searchEl.classList.add("filled");
       }
     }
-    for (var i = 0; i < allIcons.length; i++) {
-      var icon = allIcons[i];
+    for (let icon of allIcons) {
       if (icon.dataset.icon.indexOf(query) > -1 ||
           icon.dataset.category.indexOf(query) > -1 ||
+          icon.dataset.tags.indexOf(query) > -1 ||
           query == "") {
         icon.classList.remove("hidden");
       } else {
         icon.classList.add("hidden");
       }
     }
-    var allDirs = [].slice.call(this.iconListEl.querySelectorAll(".directory-display"));
-    for (var i = 0; i < allDirs.length; i++) {
-      var dir = allDirs[i];
-      var numberOfHiddenItems = dir.querySelectorAll(".hidden").length;
-      if ((dir.dataset.category.indexOf(query) > -1) ||
+    let categories = [].slice.call(this.iconListEl.querySelectorAll(".category-display"));
+    for (let category of categories) {
+      let numberOfHiddenItems = category.querySelectorAll(".hidden").length;
+      if ((category.dataset.category.indexOf(query) > -1) ||
           query == "") {
-        dir.classList.remove("hidden");
-      } else if (numberOfHiddenItems == dir.childNodes.length) {
-        dir.classList.add("hidden");
+        category.classList.remove("hidden");
+      } else if (numberOfHiddenItems == category.childNodes.length) {
+        category.classList.add("hidden");
       } else {
-        dir.classList.remove("hidden");
+        category.classList.remove("hidden");
       }
     }
   },
 
   showAllIcons: function() {
-    var directories = IconList.getAllDirectories();
-    for (var directory of directories) {
-      this.displayDirectory(directory);
+    let categories = IconList.getAllCategories();
+    for (let category of categories) {
+      this.displayCategory(category);
     }
     document.getElementById("loading").remove();
     this.iconListEl.removeAttribute("hidden");
@@ -137,10 +137,10 @@ window.addEventListener("DOMContentLoaded", IconViewer.init.bind(IconViewer));
 
 // Helpers
 function createNode(options) {
-  var el = document.createElement(options.tagName || "div");
+  let el = document.createElement(options.tagName || "div");
 
   if (options.attributes) {
-    for (var i in options.attributes) {
+    for (let i in options.attributes) {
       el.setAttribute(i, options.attributes[i]);
     }
   }
@@ -177,9 +177,9 @@ function updateSidebar(icon) {
 function updatePreview() {
   fetch(IconViewer.getSelected().dataset.uri).then(response => {
     return response.text();
-  }).then(data => {
+  }).then(innerHTML => {
     let icon = document.querySelector('#icon-details .preview .icon');
-    icon.innerHTML = data;
+    icon.innerHTML = innerHTML;
 
     let fills = ['context-fill', 'light', 'dark'];
     let selected = document.querySelector("input[name='fill']:checked");
@@ -208,4 +208,3 @@ function updateDownloadUrl() {
   download.setAttribute('download', selectedIcon.dataset.filename);
   download.dataset.path = selectedIcon.dataset.path;
 }
-

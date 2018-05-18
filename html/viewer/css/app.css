@@ -257,9 +257,9 @@ input:checked + .toggle:before {
   background-color: var(--white);
 }
 
-/** Directory display **/
+/** Category display **/
 
-.directory-display::before {
+.category-display::before {
   content: attr(data-category);
   color: var(--grey-50);
   display: block;
@@ -268,7 +268,7 @@ input:checked + .toggle:before {
   margin-bottom: 20px;
 }
 
-.directory-display {
+.category-display {
   border-bottom: 1px solid var(--grey-30);
   padding-bottom: 20px;
   margin-bottom: 40px;
