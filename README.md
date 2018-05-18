@@ -8,6 +8,7 @@ If you'd like to contribute SVG assets to Firefox, this is meant to be a handy g
 4. [Contributing Other Design Workflows](#contributing-other-design-workflows)
 5. [Bash Script for Cleaning SVGs](#bash-script-for-cleaning-svgs)
 6. [Contributing Code](#contributing-code)
+7. [Install](#install)
 
 <!--- 5. [Node Script](#node-script) -->
 <!--- 6. [Grunt/Gulp Packages](#grunt-gulp-packages) -->
@@ -77,3 +78,10 @@ The executable for cleaning svgs can be found [here](README-content/clean-svg). 
 We have a bunch of things we'd like to include for version 1.0; feel free to take a look at [everything in milestone 1](https://github.com/nt1m/firefox-svg-icons/milestones/v1.0) and take a crack at any of them.
 
 <!--- https://wiki.mozilla.org/DevTools/Hacking#Chrome_Themes, useful info for adding them in once they're done -->
+
+
+### Install
+From NPM:
+```
+npm install photon-icons
+```
