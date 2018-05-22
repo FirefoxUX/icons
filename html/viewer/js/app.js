@@ -10,7 +10,7 @@ var IconViewer = {
       }
     }
     this.iconListEl.addEventListener("click", ({ target }) => {
-      if (!target.classList.contains("icon-display") || target.dataset.deprecated == 'true') {
+      if (!target.classList.contains("icon-display")) {
         updateSidebar();
         return;
       }
@@ -19,6 +19,11 @@ var IconViewer = {
     document.querySelector('#icon-details .close-button')
       .addEventListener('click', () => updateSidebar());
     document.querySelector('#download a').addEventListener('click', e => {
+      // If it's a deprecated icon, don't let people download it.
+      if (document.getElementById('icon-details').dataset.deprecated == "true") {
+        e.preventDefault();
+        return;
+      }
       updateDownloadUrl();
       ga('send', 'event', 'icons', 'click', e.target.dataset.path);
     });
@@ -171,6 +176,7 @@ function updateSidebar(icon) {
   let selectedFill = document.querySelector("input[name='fill']:checked").value;
 
   details.querySelector('.name').textContent = icon.dataset.icon;
+  details.dataset.deprecated = icon.dataset.deprecated;
   updatePreview();
 }
 
