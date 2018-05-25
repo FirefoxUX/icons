@@ -146,6 +146,10 @@ body {
   height: 64px;
 }
 
+#icon-details[data-deprecated^="true"] svg {
+  opacity: 0.5;
+}
+
 #icon-details .name {
   padding: 16px 0;
   text-align: center;
@@ -194,11 +198,6 @@ input:checked + .toggle:before {
 
 /** Footer Buttons **/
 
-#download {
-  text-align: right;
-  cursor: pointer;
-}
-
 #download a {
   display: block;
   background-color: var(--blue-50);
@@ -208,6 +207,11 @@ input:checked + .toggle:before {
   padding: 12px 24px;
   text-decoration: none;
   border-radius: 4px;
+}
+
+#icon-details[data-deprecated^="true"] a {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /** Embed version **/
