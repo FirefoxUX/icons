@@ -9,9 +9,13 @@ var IconList = {
       self.categories = [];
 
       for (let icon of data) {
-        let sizes = Object.keys(icon.source.desktop);
-        sizes.sort((a,b) => a - b)
-        icon.fullURI = pageUrl + icon.source.desktop[sizes[sizes.length - 1]];
+        let sizes = [];
+        for (let platform of Object.keys(icon.source)) {
+          sizes.push(...Object.keys(icon.source[platform]).map(x => [x,platform]));
+        }
+        sizes.sort((a,b) => a[0] - b[0])
+        let entry = sizes[sizes.length - 1];
+        icon.fullURI = pageUrl + icon.source[entry[1]][entry[0]];
 
         for (let category of icon.categories) {
           if (category_index[category] == undefined) {
