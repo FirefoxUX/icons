@@ -44,6 +44,22 @@ body {
   background-color: var(--white);
 }
 
+#headline .toggle {
+  float: right;
+}
+
+#headline .toggle span {
+  margin-right: 1em;
+  padding: 3px;
+  border: 1px solid var(--grey-50);
+  border-radius: 2px;
+  font-size: 20px;
+}
+
+#headline .toggle span.checked {
+  background: var(--grey-30);
+}
+
 #icon-list {
   margin: 20px;
 }

@@ -1,4 +1,12 @@
 var FORMATS = {
+  desktop: {
+    export(svg) {
+      let blob = new Blob([svg], {
+        type: "image/svg+xml",
+      });
+      return URL.createObjectURL(blob);
+    }
+  },
   svg: {
     export(svg) {
       let blob = new Blob([svg], {
@@ -9,12 +17,18 @@ var FORMATS = {
   },
   ios: {
     export(svg) {
-      // TODO 
+      let blob = new Blob([svg], {
+        type: "image/svg+xml",
+      });
+      return URL.createObjectURL(blob);
     }
   },
   android: {
     export(svg) {
-      // TODO
+      let blob = new Blob([svg], {
+        type: "image/svg+xml",
+      });
+      return URL.createObjectURL(blob);
     }
   }
 };

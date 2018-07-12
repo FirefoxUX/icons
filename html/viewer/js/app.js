@@ -1,5 +1,11 @@
 var IconViewer = {
   init: function() {
+    document.querySelector('#headline .toggle').addEventListener('click', IconViewer.togglePlatform.bind(IconViewer));
+    this.platforms = new Map();
+    for (let platform of document.querySelectorAll('#headline .toggle span')) {
+      this.platforms.set(platform.id.replace('toggle-', ''), platform.classList.contains('checked'));
+    }
+
     this.iconListEl = document.querySelector("#icon-list");
     this.searchEl = document.querySelector("#search-input");
     if (this.searchEl) {
@@ -29,7 +35,7 @@ var IconViewer = {
     });
     this.previewEl = document.querySelector('#icon-details .preview');
 
-    document.querySelector('#icon-details .fill').addEventListener('click', updatePreview);
+    document.querySelector('#icon-details .options').addEventListener('change', updatePreview);
 
     this.showAllIcons();
   },
@@ -62,7 +68,6 @@ var IconViewer = {
       tagName: "div",
       attributes: {
         class: "icon-display",
-        "data-uri": IconList.getFullIconURI(icon),
         download: icon.name + '.svg',
         target: "_blank",
         "data-icon": icon.name.toLowerCase(),
@@ -74,13 +79,28 @@ var IconViewer = {
       },
       parent: container
     });
+    for (let platform in icon.source) {
+      iconContainer.dataset[`uri_${platform}`] = IconList.getFullIconURI(icon, new Map([[platform, true]]));
+    }
     let image = createNode({
       tagName: "img",
       attributes: {
-        src: IconList.getFullIconURI(icon)
+        src: IconList.getFullIconURI(icon, this.platforms)
       },
       parent: iconContainer
     });
+  },
+
+  getIconUri: function(icon, platforms) {
+    platforms = platforms || this.platforms;
+
+    for (let [platform,enabled] of platforms) {
+      let icon_uri = icon.dataset[`uri_${platform}`];
+      if (enabled && icon_uri) {
+        return icon_uri;
+      }
+    }
+    return null;
   },
 
   filterIcons: function() {
@@ -108,6 +128,19 @@ var IconViewer = {
         icon.classList.add("hidden");
       }
     }
+
+    // Also specifically hide the ones that aren't on the specified platform.)
+    nextIcon: for (let icon of allIcons) {
+      if (!icon.classList.contains("hidden")) {
+        let icon_uri = this.getIconUri(icon);
+        if (icon_uri) {
+          icon.childNodes[0].src = icon_uri;
+        } else {
+          icon.classList.add("hidden");
+        }
+      }
+    }
+
     let categories = [].slice.call(this.iconListEl.querySelectorAll(".category-display"));
     for (let category of categories) {
       let numberOfHiddenItems = category.querySelectorAll(".hidden").length;
@@ -132,9 +165,15 @@ var IconViewer = {
     if (this.searchEl) {
       this.searchEl.removeAttribute("disabled");
     }
-    if (location.hash) {
-      this.filterIcons();
-    }
+    this.filterIcons();
+  },
+
+  togglePlatform: function(e) {
+    let active = e.originalTarget.classList.contains('checked');
+    let id = e.originalTarget.id.replace('toggle-', '');
+    this.platforms.set(id, !active);
+    e.originalTarget.classList.toggle('checked');
+    this.filterIcons();
   }
 };
 
@@ -180,8 +219,17 @@ function updateSidebar(icon) {
   updatePreview();
 }
 
-function updatePreview() {
-  fetch(IconViewer.getSelected().dataset.uri).then(response => {
+function updatePreview(e) {
+  // Figure out the current platform.
+  let selectedFormat = document.querySelector(".platform.section input:checked").value;
+  if (selectedFormat == "svg") {
+    selectedFormat = "desktop";
+  }
+  let icon_uri = IconViewer.getIconUri(IconViewer.getSelected(), new Map([[selectedFormat, true]]));
+  if (!icon_uri) {
+    return;
+  }
+  fetch(icon_uri).then(response => {
     return response.text();
   }).then(innerHTML => {
     let icon = document.querySelector('#icon-details .preview .icon');
