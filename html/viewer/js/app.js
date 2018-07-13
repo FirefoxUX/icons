@@ -1,6 +1,6 @@
 var IconViewer = {
   init: function() {
-    document.querySelector('#headline .toggle').addEventListener('click', IconViewer.togglePlatform.bind(IconViewer));
+    document.querySelector('.filter .toggle').addEventListener('click', IconViewer.togglePlatform.bind(IconViewer));
     this.platforms = new Map();
     for (let platform of document.querySelectorAll('#headline .toggle span')) {
       this.platforms.set(platform.id.replace('toggle-', ''), platform.classList.contains('checked'));
@@ -111,13 +111,6 @@ var IconViewer = {
     let allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
     location.hash = "#" + query;
     query = query.toLowerCase();
-    if (this.searchEl) {
-      if (query == "") {
-        this.searchEl.classList.remove("filled");
-      } else {
-        this.searchEl.classList.add("filled");
-      }
-    }
     for (let icon of allIcons) {
       if (icon.dataset.icon.indexOf(query) > -1 ||
           icon.dataset.category.indexOf(query) > -1 ||
