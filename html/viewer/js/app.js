@@ -1,10 +1,7 @@
 var IconViewer = {
   init: function() {
     document.querySelector('.filter .toggle').addEventListener('click', IconViewer.togglePlatform.bind(IconViewer));
-    this.platforms = new Map();
-    for (let platform of document.querySelectorAll('#headline .toggle span')) {
-      this.platforms.set(platform.id.replace('toggle-', ''), platform.classList.contains('checked'));
-    }
+    this.platform = document.querySelector('.filter .toggle .checked').id.replace('toggle-', '');
 
     this.iconListEl = document.querySelector("#icon-list");
     this.searchEl = document.querySelector("#search-input");
@@ -80,27 +77,20 @@ var IconViewer = {
       parent: container
     });
     for (let platform in icon.source) {
-      iconContainer.dataset[`uri_${platform}`] = IconList.getFullIconURI(icon, new Map([[platform, true]]));
+      iconContainer.dataset[`uri_${platform}`] = IconList.getFullIconURI(icon, platform);
     }
     let image = createNode({
       tagName: "img",
       attributes: {
-        src: IconList.getFullIconURI(icon, this.platforms)
+        src: IconList.getFullIconURI(icon, this.platform)
       },
       parent: iconContainer
     });
   },
 
-  getIconUri: function(icon, platforms) {
-    platforms = platforms || this.platforms;
-
-    for (let [platform,enabled] of platforms) {
-      let icon_uri = icon.dataset[`uri_${platform}`];
-      if (enabled && icon_uri) {
-        return icon_uri;
-      }
-    }
-    return null;
+  getIconUri: function(icon, platform) {
+    platform = platform || this.platform;
+    return icon.dataset[`uri_${platform}`];
   },
 
   filterIcons: function() {
@@ -162,10 +152,14 @@ var IconViewer = {
   },
 
   togglePlatform: function(e) {
-    let active = e.originalTarget.classList.contains('checked');
-    let id = e.originalTarget.id.replace('toggle-', '');
-    this.platforms.set(id, !active);
-    e.originalTarget.classList.toggle('checked');
+    let target = e.originalTarget;
+    while (!target.id) {
+      target = target.parentNode;
+    }
+    let platforms = document.querySelectorAll(".filter .toggle div");
+    platforms.forEach(elem => elem.classList.toggle("checked", elem === target ));
+    this.platform = target.id.replace('toggle-', '');
+
     this.filterIcons();
   }
 };
@@ -207,18 +201,26 @@ function updateSidebar(icon) {
 
   let selectedFill = document.querySelector("input[name='fill']:checked").value;
 
+  // Figure out the current platform.
+  let selectedIcon = IconViewer.getSelected().dataset;
+  let formats = document.querySelectorAll(".platform.section input");
+  for (let format of formats) {
+    let id = format.id;
+    if (id == "web") {
+      id = "desktop";
+    }
+    format.disabled = (!selectedIcon[`uri_${id}`]);
+    format.checked = (format.id == IconViewer.platform);
+  }
+
   details.querySelector('.name').textContent = icon.dataset.icon;
   details.dataset.deprecated = icon.dataset.deprecated;
   updatePreview();
 }
 
 function updatePreview(e) {
-  // Figure out the current platform.
   let selectedFormat = document.querySelector(".platform.section input:checked").value;
-  if (selectedFormat == "svg") {
-    selectedFormat = "desktop";
-  }
-  let icon_uri = IconViewer.getIconUri(IconViewer.getSelected(), new Map([[selectedFormat, true]]));
+  let icon_uri = IconViewer.getIconUri(IconViewer.getSelected(), selectedFormat);
   if (!icon_uri) {
     return;
   }

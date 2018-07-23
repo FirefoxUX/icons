@@ -31,11 +31,7 @@ var IconList = {
     return self.categories;
   },
 
-  getFullIconURI: function(icon, platforms) {
-    for (let [platform, enabled] of platforms) {
-      if (enabled && icon.fullURIs[platform]) {
-        return icon.fullURIs[platform];
-      }
-    }
+  getFullIconURI: function(icon, platform) {
+    return icon.fullURIs[platform];
   }
 };
