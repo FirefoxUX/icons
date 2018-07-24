@@ -214,8 +214,8 @@ body {
 #icon-details .preview.light {
   color: rgba(249, 249, 250, .8);
   background-color: var(--grey-90);
-  background-image: linear-gradient(45deg, #4a4a4f 25%, transparent 25%, transparent 75%, #4a4a4f 75%, #4a4a4f), 
-  linear-gradient(45deg, #4a4a4f 25%, transparent 25%, transparent 75%, #4a4a4f 75%, #4a4a4f);
+  background-image: linear-gradient(45deg, var(--grey-70) 25%, transparent 25%, transparent 75%, var(--grey-70) 75%, var(--grey-70)), 
+  linear-gradient(45deg, var(--grey-70) 25%, transparent 25%, transparent 75%, var(--grey-70) 75%, var(--grey-70));
   background-size: 10px 10px;
   background-position: 0 0, 5px 5px;
 }
@@ -223,8 +223,8 @@ body {
 #icon-details .preview.dark {
   color: rgba(12, 12, 13, .8);
   background-color: var(--grey-10);
-  background-image: linear-gradient(45deg, #d7d7db 25%, transparent 25%, transparent 75%, #d7d7db 75%, #d7d7db), 
-  linear-gradient(45deg, #d7d7db 25%, transparent 25%, transparent 75%, #d7d7db 75%, #d7d7db);
+  background-image: linear-gradient(45deg, var(--grey-30) 25%, transparent 25%, transparent 75%, var(--grey-30) 75%, var(--grey-30)), 
+  linear-gradient(45deg, var(--grey-30) 25%, transparent 25%, transparent 75%, var(--grey-30) 75%, var(--grey-30));
   background-size: 10px 10px;
   background-position: 0 0, 5px 5px;
 }
