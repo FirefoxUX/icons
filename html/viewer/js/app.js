@@ -239,7 +239,7 @@ function updatePreview(e) {
     }
     let elements = IconViewer.previewEl.querySelectorAll('[fill="context-fill"]');
     if (elements.length == 0) {
-      elements = IconViewer.previewEl.querySelectorAll('[fill="#0c0c0d"]');
+      elements = IconViewer.previewEl.querySelectorAll('[fill="#0c0c0d" i]');
     }
     elements.forEach(el => {
       el.setAttribute('fill', selected.value);
