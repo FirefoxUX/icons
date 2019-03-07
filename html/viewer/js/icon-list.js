@@ -9,13 +9,14 @@ var IconList = {
       self.categories = [];
 
       for (let icon of data) {
-        let sizes = [];
+        icon.fullURIs = {};
         for (let platform of Object.keys(icon.source)) {
-          sizes.push(...Object.keys(icon.source[platform]).map(x => [x,platform]));
+          let sizes = [];
+          sizes.push(...Object.keys(icon.source[platform]));
+          sizes.sort()
+          let entry = sizes[sizes.length - 1];
+          icon.fullURIs[platform] = pageUrl + icon.source[platform][entry];
         }
-        sizes.sort((a,b) => a[0] - b[0])
-        let entry = sizes[sizes.length - 1];
-        icon.fullURI = pageUrl + icon.source[entry[1]][entry[0]];
 
         for (let category of icon.categories) {
           if (category_index[category] == undefined) {
@@ -30,7 +31,7 @@ var IconList = {
     return self.categories;
   },
 
-  getFullIconURI: function(icon) {
-    return icon.fullURI;
+  getFullIconURI: function(icon, platform) {
+    return icon.fullURIs[platform];
   }
 };

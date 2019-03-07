@@ -1,7 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans:400);
-
 :root {
-  --white: #ffffff;
+  --white-100: #ffffff;
   --blue-50: #0a84ff;
   --blue-60: #0060df;
   --grey-10: #f9f9fa;
@@ -9,6 +7,9 @@
   --grey-50: #737373;
   --grey-70: #4a4a4f;
   --grey-90: #0c0c0d;
+  --grey-90-a10: rgba(12, 12, 13, 0.1);
+  --grey-90-a20: rgba(12, 12, 13, 0.2);
+  --grey-90-a60: rgba(12, 12, 13, 0.6);
   --photon-timing-fuction: cubic-bezier(.07,.95,0,1);
   --sidebar-width: 320px;
 }
@@ -18,8 +19,9 @@
 }
 
 /** Global styles **/
+
 body {
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
   margin: 0;
   padding: 0;
   color: var(--grey-90);
@@ -41,7 +43,85 @@ body {
   padding: 20px;
   font-size: 36px;
   font-weight: 400;
-  background-color: var(--white);
+  background-color: var(--white-100);
+}
+
+/** Filter **/
+
+.filter {
+  background-color: var(--white-100);
+  border-bottom: 1px solid var(--grey-30);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/** Toggle **/
+
+.filter .toggle {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.filter .toggle div {
+  border-bottom: 4px solid transparent;
+  color: var(--grey-50);
+  flex-grow: 1;
+  font-size: 16px;
+  padding: 16px 8px;
+  text-align: center;
+}
+
+.filter .toggle div:hover,
+.filter .toggle div:active {
+  background-color: var(--grey-90-a10);
+  border-bottom: 4px solid var(--grey-30);
+}
+
+.filter .toggle div.checked {
+  border-bottom: 4px solid var(--blue-50);
+  color: var(--blue-50);
+}
+
+.toggle div span {
+  background-color: var(--grey-90-a60);
+  background-size: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 16px;
+  margin-right: 8px;
+  margin-top: 1px;
+  vertical-align: top;
+  width: 16px;
+}
+
+.filter .toggle div.checked span {
+  background-color: var(--blue-50);
+}
+
+#toggle-desktop span {
+  mask: url('../images/desktop-16.svg') no-repeat center;
+}
+
+#toggle-android span {
+  mask: url('../images/android-16.svg') no-repeat center;
+}
+
+#toggle-ios span {
+  mask: url('../images/ios-16.svg') no-repeat center;
+}
+
+@media screen and (min-width: 600px) {
+  .filter {
+    display: flex;
+  }
+  .filter .toggle span {
+    flex-grow: 0;
+  }
+
+  .filter .toggle div {
+    padding: 16px;
+  }
 }
 
 #icon-list {
@@ -53,7 +133,7 @@ body {
 #icon-details {
   display: flex;
   flex-direction: column;
-  background-color: var(--white);
+  background-color: var(--white-100);
   height: 100vh;
   position: fixed;
   left: 100%;
@@ -104,7 +184,7 @@ body {
   width: 24px;
   height: 24px;
   cursor: pointer;
-  background-color: var(--white);
+  background-color: var(--white-100);
   border-radius: 4px;
 }
 
@@ -134,13 +214,20 @@ body {
 #icon-details .preview.light {
   color: rgba(249, 249, 250, .8);
   background-color: var(--grey-90);
+  background-image: linear-gradient(45deg, var(--grey-70) 25%, transparent 25%, transparent 75%, var(--grey-70) 75%, var(--grey-70)), 
+  linear-gradient(45deg, var(--grey-70) 25%, transparent 25%, transparent 75%, var(--grey-70) 75%, var(--grey-70));
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
 }
 
 #icon-details .preview.dark {
   color: rgba(12, 12, 13, .8);
   background-color: var(--grey-10);
+  background-image: linear-gradient(45deg, var(--grey-30) 25%, transparent 25%, transparent 75%, var(--grey-30) 75%, var(--grey-30)), 
+  linear-gradient(45deg, var(--grey-30) 25%, transparent 25%, transparent 75%, var(--grey-30) 75%, var(--grey-30));
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
 }
-
 #icon-details svg {
   width: 64px;
   height: 64px;
@@ -186,22 +273,12 @@ label small {
   text-transform: uppercase;
 }
 
-input:checked + .toggle,
-input:focus + .toggle {
-  background-color: var(--blue-50);
-}
-
-input:checked + .toggle:before {
-  transform: translateX(18px);
-  border-color: var(--blue-50);
-}
-
 /** Footer Buttons **/
 
 #download a {
   display: block;
   background-color: var(--blue-50);
-  color: var(--white);
+  color: var(--white-100);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   padding: 12px 24px;
@@ -235,29 +312,28 @@ input:checked + .toggle:before {
 /** Search input **/
 
 #search-input {
-  width: 100%;
-  padding: 16px 24px 16px 48px;
-  font-family: inherit;
-  font-size: 20px;
-  border-width: 0 0 1px 0;
-  border-color: var(--grey-30);
-  border-style: solid;
-  position: sticky;
-  top: 0;
   background-image: url(../../icons/desktop/search-16.svg);
   background-position: 20px center;
   background-repeat: no-repeat;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: var(--grey-30);
   color: var(--grey-90);
-  z-index: 1;
-}
-
-#search-input.filled {
-  border-color: var(--blue-50);
+  font-family: inherit;
+  font-size: 16px;
+  padding: 16px 24px 16px 48px;
+  width: 100%;
 }
 
 #search-input[disabled] {
+  background-color: var(--white-100);
   opacity: 0.5;
-  background-color: var(--white);
+}
+
+@media screen and (min-width: 600px) {
+  #search-input {
+    border: none;
+  }
 }
 
 /** Category display **/
@@ -343,7 +419,7 @@ input:checked + .toggle:before {
   top: 2px;
   right: 2px;
   background-color: var(--grey-90);
-  color: var(--white);
+  color: var(--white-100);
   opacity: 0;
   font-size: 12px;
   border-radius: 2px;

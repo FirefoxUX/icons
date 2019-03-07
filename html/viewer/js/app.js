@@ -1,5 +1,8 @@
 var IconViewer = {
   init: function() {
+    document.querySelector('.filter .toggle').addEventListener('click', IconViewer.togglePlatform.bind(IconViewer));
+    this.platform = document.querySelector('.filter .toggle .checked').id.replace('toggle-', '');
+
     this.iconListEl = document.querySelector("#icon-list");
     this.searchEl = document.querySelector("#search-input");
     if (this.searchEl) {
@@ -29,7 +32,7 @@ var IconViewer = {
     });
     this.previewEl = document.querySelector('#icon-details .preview');
 
-    document.querySelector('#icon-details .fill').addEventListener('click', updatePreview);
+    document.querySelector('#icon-details .options').addEventListener('change', updatePreview);
 
     this.showAllIcons();
   },
@@ -62,7 +65,6 @@ var IconViewer = {
       tagName: "div",
       attributes: {
         class: "icon-display",
-        "data-uri": IconList.getFullIconURI(icon),
         download: icon.name + '.svg',
         target: "_blank",
         "data-icon": icon.name.toLowerCase(),
@@ -74,13 +76,21 @@ var IconViewer = {
       },
       parent: container
     });
+    for (let platform in icon.source) {
+      iconContainer.dataset[`uri_${platform}`] = IconList.getFullIconURI(icon, platform);
+    }
     let image = createNode({
       tagName: "img",
       attributes: {
-        src: IconList.getFullIconURI(icon)
+        src: IconList.getFullIconURI(icon, this.platform)
       },
       parent: iconContainer
     });
+  },
+
+  getIconUri: function(icon, platform) {
+    platform = platform || this.platform;
+    return icon.dataset[`uri_${platform}`];
   },
 
   filterIcons: function() {
@@ -91,13 +101,6 @@ var IconViewer = {
     let allIcons = [].slice.call(this.iconListEl.querySelectorAll(".icon-display"));
     location.hash = "#" + query;
     query = query.toLowerCase();
-    if (this.searchEl) {
-      if (query == "") {
-        this.searchEl.classList.remove("filled");
-      } else {
-        this.searchEl.classList.add("filled");
-      }
-    }
     for (let icon of allIcons) {
       if (icon.dataset.icon.indexOf(query) > -1 ||
           icon.dataset.category.indexOf(query) > -1 ||
@@ -108,6 +111,19 @@ var IconViewer = {
         icon.classList.add("hidden");
       }
     }
+
+    // Also specifically hide the ones that aren't on the specified platform.)
+    nextIcon: for (let icon of allIcons) {
+      if (!icon.classList.contains("hidden")) {
+        let icon_uri = this.getIconUri(icon);
+        if (icon_uri) {
+          icon.childNodes[0].src = icon_uri;
+        } else {
+          icon.classList.add("hidden");
+        }
+      }
+    }
+
     let categories = [].slice.call(this.iconListEl.querySelectorAll(".category-display"));
     for (let category of categories) {
       let numberOfHiddenItems = category.querySelectorAll(".hidden").length;
@@ -132,9 +148,19 @@ var IconViewer = {
     if (this.searchEl) {
       this.searchEl.removeAttribute("disabled");
     }
-    if (location.hash) {
-      this.filterIcons();
+    this.filterIcons();
+  },
+
+  togglePlatform: function(e) {
+    let target = e.originalTarget;
+    while (!target.id) {
+      target = target.parentNode;
     }
+    let platforms = document.querySelectorAll(".filter .toggle div");
+    platforms.forEach(elem => elem.classList.toggle("checked", elem === target ));
+    this.platform = target.id.replace('toggle-', '');
+
+    this.filterIcons();
   }
 };
 
@@ -175,13 +201,30 @@ function updateSidebar(icon) {
 
   let selectedFill = document.querySelector("input[name='fill']:checked").value;
 
+  // Figure out the current platform.
+  let selectedIcon = IconViewer.getSelected().dataset;
+  let formats = document.querySelectorAll(".platform.section input");
+  for (let format of formats) {
+    let id = format.id;
+    if (id == "web") {
+      id = "desktop";
+    }
+    format.disabled = (!selectedIcon[`uri_${id}`]);
+    format.checked = (format.id == IconViewer.platform);
+  }
+
   details.querySelector('.name').textContent = icon.dataset.icon;
   details.dataset.deprecated = icon.dataset.deprecated;
   updatePreview();
 }
 
-function updatePreview() {
-  fetch(IconViewer.getSelected().dataset.uri).then(response => {
+function updatePreview(e) {
+  let selectedFormat = document.querySelector(".platform.section input:checked").value;
+  let icon_uri = IconViewer.getIconUri(IconViewer.getSelected(), selectedFormat);
+  if (!icon_uri) {
+    return;
+  }
+  fetch(icon_uri).then(response => {
     return response.text();
   }).then(innerHTML => {
     let icon = document.querySelector('#icon-details .preview .icon');
@@ -195,6 +238,9 @@ function updatePreview() {
       }
     }
     let elements = IconViewer.previewEl.querySelectorAll('[fill="context-fill"]');
+    if (elements.length == 0) {
+      elements = IconViewer.previewEl.querySelectorAll('[fill="#0c0c0d" i]');
+    }
     elements.forEach(el => {
       el.setAttribute('fill', selected.value);
     });

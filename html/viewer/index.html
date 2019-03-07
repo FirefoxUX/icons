@@ -8,7 +8,14 @@
 </head>
 <body>
   <h1 id="headline">Photon Icons</h1>
-  <input type="text" placeholder="Search Icons" id="search-input"/>
+  <div class="filter">
+    <input type="text" placeholder="Search Icons" id="search-input"/>
+    <div class="toggle">
+      <div id="toggle-desktop" class="checked"><span></span>Desktop</div>
+      <div id="toggle-android"><span></span>Android</div>
+      <div id="toggle-ios"><span></span>iOS</div>
+    </div>
+  </div>
   <div id="icon-list" hidden></div>
   <div id="loading">Loading icons...</div>
   <div id="icon-details">
@@ -25,16 +32,16 @@
         <div class="section platform">
           <div class="title">Platform</div>
           <div class="radio">
-            <input type="radio" name="platform" value="svg" id="desktop" checked><label for="desktop"><span>Desktop</span></label><br>
+            <input type="radio" name="platform" value="desktop" id="desktop" checked><label for="desktop"><span>Desktop</span></label><br>
           </div>
           <div class="radio">
             <input type="radio" name="platform" value="svg" id="web"><label for="web"><span>Web</span></label><br>
           </div>
           <div class="radio">
-            <input type="radio" name="platform" value="ios" id="ios" disabled><label for="ios"><span>iOS</span><small>Coming Soon</small></label><br>
+            <input type="radio" name="platform" value="android" id="android"><label for="android"><span>Android</span></label><br>
           </div>
           <div class="radio">
-            <input type="radio" name="platform" value="android" id="Android" disabled><label for="android"><span>Android</span><small>Coming Soon</small></label>
+            <input type="radio" name="platform" value="ios" id="ios"><label for="ios"><span>iOS</span></label><br>
           </div>
         </div>
         <div class="section fill">
