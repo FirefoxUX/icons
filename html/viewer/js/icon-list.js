@@ -3,21 +3,10 @@ var IconList = {
 
   getAllCategories: function() {
     if (!self.categories) {
-      let pageUrl = location.href;
-      pageUrl = pageUrl.substring(0, pageUrl.lastIndexOf("/")).replace("viewer", "");
       let category_index = {};
       self.categories = [];
 
       for (let icon of data) {
-        icon.fullURIs = {};
-        for (let platform of Object.keys(icon.source)) {
-          let sizes = [];
-          sizes.push(...Object.keys(icon.source[platform]));
-          sizes.sort()
-          let entry = sizes[sizes.length - 1];
-          icon.fullURIs[platform] = pageUrl + icon.source[platform][entry];
-        }
-
         for (let category of icon.categories) {
           if (category_index[category] == undefined) {
             category_index[category] = self.categories.length;
@@ -31,7 +20,14 @@ var IconList = {
     return self.categories;
   },
 
-  getFullIconURI: function(icon, platform) {
-    return icon.fullURIs[platform];
+  getDisplayURI: function(icon, platform, size) {
+    const sizes = icon.source[platform];
+    if (!icon.source[platform]) {
+      return undefined;
+    }
+    const selectedSize = size || Math.max(...Object.keys(sizes));
+    let pageUrl = location.href;
+    pageUrl = pageUrl.substring(0, pageUrl.lastIndexOf("/")).replace("viewer", "");
+    return pageUrl + icon.source[platform][selectedSize];
   }
 };

@@ -76,21 +76,20 @@ var IconViewer = {
       },
       parent: container
     });
+
+    iconContainer.source = icon.source;
+
     for (let platform in icon.source) {
-      iconContainer.dataset[`uri_${platform}`] = IconList.getFullIconURI(icon, platform);
+      iconContainer.dataset[`uri_${platform}`] = IconList.getDisplayURI(icon, platform);
     }
+
     let image = createNode({
       tagName: "img",
       attributes: {
-        src: IconList.getFullIconURI(icon, this.platform)
+        src: IconList.getDisplayURI(icon, this.platform)
       },
       parent: iconContainer
     });
-  },
-
-  getIconUri: function(icon, platform) {
-    platform = platform || this.platform;
-    return icon.dataset[`uri_${platform}`];
   },
 
   filterIcons: function() {
@@ -115,7 +114,7 @@ var IconViewer = {
     // Also specifically hide the ones that aren't on the specified platform.)
     nextIcon: for (let icon of allIcons) {
       if (!icon.classList.contains("hidden")) {
-        let icon_uri = this.getIconUri(icon);
+        let icon_uri = IconList.getDisplayURI(icon, this.platform);
         if (icon_uri) {
           icon.childNodes[0].src = icon_uri;
         } else {
@@ -199,19 +198,37 @@ function updateSidebar(icon) {
 
   ga('send', 'event', 'icons', 'preview', icon.dataset.path);
 
-  let selectedFill = document.querySelector("input[name='fill']:checked").value;
+  let sizeSelector = document.getElementById("sizes");
+  let iconSizes = IconViewer.getSelected().source[IconViewer.platform];
 
-  // Figure out the current platform.
-  let selectedIcon = IconViewer.getSelected().dataset;
-  let formats = document.querySelectorAll(".platform.section input");
-  for (let format of formats) {
-    let id = format.id;
-    if (id == "web") {
-      id = "desktop";
-    }
-    format.disabled = (!selectedIcon[`uri_${id}`]);
-    format.checked = (format.id == IconViewer.platform);
+  sizeSelector.textContent = "";
+  for (let size in iconSizes) {
+    let parent = createNode({
+      attributes: { class: "radio" },
+      parent: sizeSelector,
+    });
+    createNode({
+      tagName: "input",
+      attributes: {
+        type: "radio",
+        name: "size",
+        value: size,
+        id: "size-" + size,
+      },
+      parent: parent,
+    });
+    createNode({
+      tagName: "label",
+      attributes: {
+        for: "size-" + size,
+      },
+      textContent: size,
+      parent: parent,
+    });
   }
+
+  let maxSize = Math.max(...Object.keys(iconSizes));
+  document.getElementById("size-" + maxSize).checked = true;
 
   details.querySelector('.name').textContent = icon.dataset.icon;
   details.dataset.deprecated = icon.dataset.deprecated;
@@ -219,8 +236,14 @@ function updateSidebar(icon) {
 }
 
 function updatePreview(e) {
-  let selectedFormat = document.querySelector(".platform.section input:checked").value;
-  let icon_uri = IconViewer.getIconUri(IconViewer.getSelected(), selectedFormat);
+  let selectedSize = document.querySelector("input[name='size']:checked").value;
+
+  let icon_uri = IconList.getDisplayURI(
+    IconViewer.getSelected(),
+    IconViewer.platform,
+    selectedSize,
+  );
+
   if (!icon_uri) {
     return;
   }
@@ -231,10 +254,10 @@ function updatePreview(e) {
     icon.innerHTML = innerHTML;
 
     let fills = ['context-fill', 'light', 'dark'];
-    let selected = document.querySelector("input[name='fill']:checked");
-    if (fills.includes(selected.id)) {
+    let selectedFill = document.querySelector("input[name='fill']:checked");
+    if (fills.includes(selectedFill.id)) {
       for (let id of fills) {
-        IconViewer.previewEl.classList.toggle(id, selected.id === id);
+        IconViewer.previewEl.classList.toggle(id, selectedFill.id === id);
       }
     }
     let elements = IconViewer.previewEl.querySelectorAll('[fill="context-fill"]');
@@ -242,7 +265,7 @@ function updatePreview(e) {
       elements = IconViewer.previewEl.querySelectorAll('[fill="#0c0c0d" i]');
     }
     elements.forEach(el => {
-      el.setAttribute('fill', selected.value);
+      el.setAttribute('fill', selectedFill.value);
     });
 
     updateDownloadUrl();
@@ -250,7 +273,7 @@ function updatePreview(e) {
 }
 
 function updateDownloadUrl() {
-  let selectedFormat = document.querySelector(".platform.section input:checked").value;
+  let selectedFormat = IconViewer.platform;
   let selectedIcon = IconViewer.getSelected();
 
   let svg = document.querySelector("#icon-details .preview .icon").innerHTML;
