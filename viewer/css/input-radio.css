@@ -1,0 +1,45 @@
+#icon-details [type="radio"]:not(:checked) + label, 
+#icon-details [type="radio"]:checked + label {
+  cursor: pointer;
+  padding-left: 32px;
+  position: relative;
+}
+
+#icon-details [type="radio"]:not(:checked), 
+#icon-details [type="radio"]:checked {
+  left: -9999px;
+  position: absolute;
+}
+
+#icon-details [type="radio"]:not(:checked) + label::after, 
+#icon-details [type="radio"]:checked + label::after {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+}
+
+#icon-details [type="radio"]:checked + label::after {
+  background-color: var(--blue-50);
+}
+
+#icon-details [type="radio"]:not(:checked) + label::before, 
+#icon-details [type="radio"]:checked + label::before {
+  background: var(--white);
+  border: 1px solid var(--grey-30);
+  border-radius: 100%;
+  content: '';
+  width: 20px;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+#icon-details [type="radio"]:disabled + label{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
